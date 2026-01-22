@@ -1,0 +1,20 @@
+{
+  "moscow_city": {
+    "title": "Moscow City Tour",
+    "description": "Explore Moscow's famous landmarks in one day.",
+    "duration": "1 day",
+    "price": "$50"
+  },
+  "st_petersburg": {
+    "title": "St. Petersburg Highlights",
+    "description": "Discover the beauty of St. Petersburg with our expert guides.",
+    "duration": "2 days",
+    "price": "$120"
+  },
+  "golden_ring": {
+    "title": "Golden Ring Adventure",
+    "description": "Visit ancient Russian towns and experience local culture.",
+    "duration": "3 days",
+    "price": "$200"
+  }
+}

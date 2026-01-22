@@ -1,0 +1,20 @@
+{
+  "summer_special": {
+    "title": "Summer Special Program",
+    "description": "Enjoy a mix of city tours, adventure, and cultural experiences.",
+    "days": 5,
+    "price": "$400"
+  },
+  "winter_escape": {
+    "title": "Winter Escape Program",
+    "description": "Experience Russia in winter with cozy trips and snow adventures.",
+    "days": 7,
+    "price": "$600"
+  },
+  "family_fun": {
+    "title": "Family Fun Program",
+    "description": "Perfect for families: fun, safe, and educational tours.",
+    "days": 4,
+    "price": "$350"
+  }
+}
