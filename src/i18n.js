@@ -1,39 +1,46 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-// استيراد ملفات JSON لكل لغة من src/locales
+// EN
 import enGuides from "./locales/en/guides.json";
-import ruGuides from "./locales/ru/guides.json";
-
 import enTours from "./locales/en/tours.json";
-import ruTours from "./locales/ru/tours.json";
-
 import enPrograms from "./locales/en/programmes.json";
-import ruPrograms from "./locales/ru/programmes.json";
+import enCommon from "./locales/en/common.json";
 
-// تهيئة i18next
+// RU
+import ruGuides from "./locales/ru/guides.json";
+import ruTours from "./locales/ru/tours.json";
+import ruPrograms from "./locales/ru/programmes.json";
+import ruCommon from "./locales/ru/common.json";
+
 i18n
-  .use(initReactI18next) // يربط i18next مع React
+  .use(initReactI18next)
   .init({
     resources: {
       en: {
+        common: enCommon,
         guides: enGuides,
         tours: enTours,
         programs: enPrograms
       },
       ru: {
+        common: ruCommon,
         guides: ruGuides,
         tours: ruTours,
         programs: ruPrograms
       }
     },
-    lng: "en",           // اللغة الافتراضية عند تحميل الموقع
-    fallbackLng: "en",   // اللغة الاحتياطية إذا النص مفقود
-    ns: ["guides", "tours", "programs"], // أسماء namespaces
-    defaultNS: "guides",                 // namespace افتراضي
+
+    lng: "en",
+    fallbackLng: "en",
+
+    ns: ["common", "guides", "tours", "programs"],
+    defaultNS: "common",
+
     interpolation: {
-      escapeValue: false // React يحمي النصوص من XSS
+      escapeValue: false
     }
   });
 
 export default i18n;
+

@@ -1,33 +1,26 @@
+import { Routes, Route } from "react-router-dom";
 
-import { Routes, Route } from "react-router";
+
 import Home from "./pages/Home";
-import Tours from "./pages/Tours";
-import Guides from "./pages/Guides";
-import Programs from "./pages/Programmes";
+import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Guides from "./pages/Guides";
+import Programmes from "./pages/Programmes";
+import Tours from "./pages/Tours";
 
 function App() {
-return (
-   
+  return (
+    
+     
       <Routes>
-        {/* -------------------- English -------------------- */}
-        <Route path="/en" element={<Home lang="en" />} />
-        <Route path="/en/tours" element={<Tours lang="en" />} />
-        <Route path="/en/guides" element={<Guides lang="en" />} />
-        <Route path="/en/programs" element={<Programs lang="en" />} />
-        <Route path="/en/contact" element={<Contact lang="en" />} />
-
-        {/* -------------------- Russian -------------------- */}
-        <Route path="/ru" element={<Home lang="ru" />} />
-        <Route path="/ru/tours" element={<Tours lang="ru" />} />
-        <Route path="/ru/guides" element={<Guides lang="ru" />} />
-        <Route path="/ru/programs" element={<Programs lang="ru" />} />
-        <Route path="/ru/contact" element={<Contact lang="ru" />} />
-
-       
-        <Route path="*" element={<Home lang="en" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/guides" element={<Guides />} />
+        <Route path="/programmes" element={<Programmes />} />
+        <Route path="/tours" element={<Tours />} />
       </Routes>
-  
+   
   );
 }
 
