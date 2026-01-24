@@ -14,8 +14,6 @@ export default function Header() {
       <nav style={styles.nav}>
         <Link to="/">{t("nav.home")}</Link>
         <Link to="/about">{t("nav.about")}</Link>
-        <Link to="/guides">{t("nav.guides")}</Link>
-        <Link to="/programmes">{t("nav.programmes")}</Link>
         <Link to="/tours">{t("nav.tours")}</Link>
         <Link to="/contact">{t("nav.contact")}</Link>
       </nav>
