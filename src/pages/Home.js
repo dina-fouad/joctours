@@ -1,11 +1,11 @@
 import Header from "../components/Header";
-import Tours from "./Tours"
+import Tours from "./Tours";
 
-export default function Home() {  
+export default function Home() {
   return (
     <div>
-      <Header/>   
-     <Tours/>
+      <Header />
+      <Tours />
     </div>
   );
 }

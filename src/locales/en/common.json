@@ -2,10 +2,13 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "guides": "Guides",
-    "programmes": "Programmes",
     "tours": "Tours",
     "contact": "Contact"
   },
-  "lang": "RU"
+  "lang": "RU",
+  "hero": {
+    "title": "Discover Jordan",
+    "subtitle": "Unforgettable journeys crafted just for you",
+    "cta": "Book now"
+  }
 }
