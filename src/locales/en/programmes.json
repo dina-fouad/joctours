@@ -1,20 +1,128 @@
 {
-  "summer_special": {
-    "title": "Summer Special Program",
-    "description": "Enjoy a mix of city tours, adventure, and cultural experiences.",
-    "days": 5,
-    "price": "$400"
+  "topTitle": "Best Place For You",
+  "title": "Discover the Beauty of Jordan",
+   "citiesVisited": "Cities Visited",
+  "notIncludedTitle": "Not Included in the Tour Price",
+  "programTitle": "Program",
+
+
+ "petra_wonders": {
+    "title": "The Beauty of Jordan",
+    "subtitle": "Excursion program with recreation on two seas",
+    "duration": "10 days / 9 nights",
+    "days" : "10",
+     "price": "$220",
+      "image": "/images/programmes/p2.jpeg",
+
+    "cities": [
+      "Jerash",
+      "Ajloun",
+      "Amman",
+      "Petra",
+      "Wadi Rum",
+      "Aqaba",
+      "Ma'in Hot Springs",
+      "Madaba",
+      "Mount Nebo",
+      "Baptism Site",
+      "Dead Sea"
+    ],
+
+    "notIncluded": [
+      "Personal expenses",
+      "Tips for the guide and driver",
+      "Hotel accommodation",
+      "Flights"
+    ],
+
+    "program": [
+      {
+        "day": "DAY 1",
+        "title": "Meeting at the airport – Amman",
+        "description": "Breakfast in the hotel. Transfer to Jerash - one of the best preserved provincial Roman cities in the world, “a favorite of archaeologists.” Next visit Ajlun.Ajlun Castle is one of the best preserved examples of Arab-Muslim medieval military architecture. Inside the castle is a labyrinth of passages, with spiral staircases and various halls. Return to Amman.Sightseeing tour of Amman with a visit to the citadel and the Roman amphitheater.Return to the hotel and dinner. "
+      },
+      {
+        "day": "DAY 2",
+        "title": "Amman – Jerash – Ajloun – Amman",
+        "description": "Breakfast in the hotel. Transfer to Petra.Excursion to the city of Petra, inhabited already in prehistoric times, which was located between the Red and Dead Seas and was an important crossing point for trade caravan routes between Arabia, Egypt and Syria. Petra is a city, half rebuilt, half carved out of the rock, surrounded by mountains with winding gorges. It is one of the most important archaeological sites in the world and is currently one of the existing 7 Wonders of the World. Transfer to Wadi Rum. Dinner in Bedouin traditions. Night in the camp."
+      },
+      {
+        "day": "DAY 3",
+        "title": "Amman – Petra – Wadi Rum",
+        "description": "Breakfast in the hotel.Excursion to Mount Nebo -the pride of Jordan, a holy place that is depicted in the Bible and became the alleged place of death of the prophet Moses, and most importantly, the place where God showed him the Promised Land. Then move to the city of mosaics - Madaba. Visit to the Church of St. George, where you will have the opportunity to see a mosaic map of the Holy Land from the 6th century, depicting the territory from the Phoenician city of Tire (Lebanon) to the Nile Delta in Egypt. Transfer to the place of the baptism of Jesus Christ. Opportunity to plunge into the waters of the Jordan River.Transfer to the Dead Sea, hotel accommodation, dinner."
+      }
+    ]
   },
-  "winter_escape": {
-    "title": "Winter Escape Program",
-    "description": "Experience Russia in winter with cozy trips and snow adventures.",
-    "days": 7,
-    "price": "$600"
+
+  "wadi_rum_adventure": {
+    "title": "Wadi Rum Adventure",
+    "description": "Experience the magic of the desert with jeep tours and Bedouin camps.",
+    "days": 2,
+    "price": "$220",
+    "image": "/images/programmes/p8.jpeg"
   },
-  "family_fun": {
-    "title": "Family Fun Program",
-    "description": "Perfect for families: fun, safe, and educational tours.",
-    "days": 4,
-    "price": "$350"
+
+  "dead_sea_relax": {
+    "title": "Dead Sea Relaxation",
+    "description": "Float effortlessly in the Dead Sea and enjoy luxury spa experiences.",
+    "days": 1,
+    "price": "$180",
+    "image": "/images/programmes/p3.jpeg"
+  },
+
+  "amman_city_tour": {
+    "title": "Amman City Tour",
+    "description": "Discover Amman’s history, culture, and vibrant local life.",
+    "days": 1,
+    "price": "$120",
+    "image": "/images/programmes/p4.jpeg"
+  },
+
+  "aqaba_escape": {
+    "title": "Aqaba Escape",
+    "description": "Relax by the Red Sea with snorkeling, diving, and beach resorts.",
+    "days": 3,
+    "price": "$350",
+    "image": "/images/programmes/p5.jpeg"
+  },
+
+  "jerash_history": {
+    "title": "Jerash Historical Tour",
+    "description": "Walk through the ancient Roman ruins of Jerash.",
+    "days": 1,
+    "price": "$140",
+    "image": "/images/programmes/p6.jpeg"
+  },
+
+  "ajloun_nature": {
+    "title": "Ajloun Nature Escape",
+    "description": "Enjoy green landscapes, forests, and Ajloun Castle.",
+    "days": 2,
+    "price": "$200",
+    "image": "/images/programmes/p7.jpeg"
+  },
+
+  "religious_sites": {
+    "title": "Religious Heritage Tour",
+    "description": "Visit the most important religious sites in Jordan.",
+    "days": 3,
+    "price": "$300",
+    "image": "/images/programmes/p8.jpeg"
+  },
+
+  "dana_biosphere": {
+    "title": "Dana Biosphere Reserve",
+    "description": "Explore Jordan’s largest nature reserve with breathtaking views.",
+    "days": 2,
+    "price": "$240",
+    "image": "/images/programmes/p1.jpeg"
+  },
+
+  "desert_castles": {
+    "title": "Jordan Desert Castles",
+    "description": "Discover the mysterious desert castles of eastern Jordan.",
+    "days": 2,
+    "price": "$210",
+    "image": "/images/programmes/p5.jpeg"
   }
 }

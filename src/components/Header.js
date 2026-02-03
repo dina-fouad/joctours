@@ -65,6 +65,7 @@ export default function Header() {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
+          
         }}
       >
         <source src="/videos/video.mp4" type="video/mp4" />

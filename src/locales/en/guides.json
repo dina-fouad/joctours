@@ -1,38 +1,40 @@
 {
   "topTitle": "Meet with guide",
   "title": "Tour Guide",
+  "message" : "message",
+  
   "guides": {
     "Saed": {
       "id": 1,
       "image": "/images/guides/dinaPic.jpg",
       "name": "Saed",
       "bio": "Experienced guide in Moscow. Loves cultural tours and history.",
-      "language" : "Russian , Arabic "
-
-
+      "language": "Russian, Arabic",
+      "whatsapp": "+962795052647"
     },
     "Thaer": {
       "id": 2,
-       "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/dinaPic.jpg",
       "name": "Thaer",
       "bio": "Specializes in city tours and art galleries. Friendly and knowledgeable.",
-      "language" : "Russian , Arabic , English"
+      "language": "Russian, Arabic, English",
+      "whatsapp": "+962798017138"
     },
     "Fadi": {
       "id": 3,
-       "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/dinaPic.jpg",
       "name": "Fadi",
       "bio": "Expert in adventure tours and nature trips. Fun and reliable.",
-       "language" : "Russian , Arabic "
+      "language": "Russian, Arabic",
+      "whatsapp": "+962798017138"
     },
     "Marwan": {
       "id": 4,
-       "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/dinaPic.jpg",
       "name": "Marwan",
       "bio": "Expert in adventure tours and nature trips. Fun and reliable.",
-       "language" : "Russian , Arabic "
-     
+      "language": "Russian, Arabic",
+      "whatsapp": "+962798017138"
     }
   }
 }
-

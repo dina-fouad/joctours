@@ -2,48 +2,56 @@
   "topTitle": "Wonderful Place For You",
   "title": "Tour Categories",
   "readMore": "Read More",
+   "close": "Close",
   "data": [
     {
       "id": 1,
       "title": "Cruises",
       "image": "/images/tours/deadSea.webp",
-      "description": "Enjoy a luxurious cruise experience along the Dead Sea with breathtaking views and full comfort."
+      "description": "Enjoy a luxurious cruise experience along the Dead Sea with breathtaking views and full comfort.",
+      "bio": "A luxurious cruise experience along the Dead Sea."
     },
     {
       "id": 2,
       "title": "Hiking",
       "image": "/images/tours/amman.jpg",
-      "description": "Explore the hills and mountains of Amman on guided hiking tours suitable for all levels."
+      "description": "Explore the hills and mountains of Amman on guided hiking tours suitable for all levels.",
+      "bio": "Explore the hills and mountains of Amman on guided hikes."
     },
     {
       "id": 3,
       "title": "Airbirds",
       "image": "/images/tours/aqaba.jpg",
-      "description": "Discover the beauty of Aqaba from the skies with our Airbirds paragliding adventures."
+      "description": "Discover the beauty of Aqaba from the skies with our Airbirds paragliding adventures.",
+      "bio": "Discover Aqaba from the skies with paragliding adventures."
     },
     {
       "id": 4,
       "title": "Wildlife",
       "image": "/images/tours/pertra.jpg",
-      "description": "Get close to Jordan's wildlife in its natural habitats with expert guides."
+      "description": "Get close to Jordan's wildlife in its natural habitats with expert guides.",
+      "bio": "Get close to Jordan's wildlife in its natural habitats."
     },
     {
       "id": 5,
       "title": "Walking",
       "image": "/images/tours/ajloun.jpg",
-      "description": "Leisurely walking tours in scenic areas, perfect for photography and exploration."
+      "description": "Leisurely walking tours in scenic areas, perfect for photography and exploration.",
+      "bio": "Leisurely walking tours in scenic areas, perfect for photography."
     },
-      {
+    {
       "id": 6,
       "title": "Wildlife",
       "image": "/images/tours/pertra.jpg",
-      "description": "Get close to Jordan's wildlife in its natural habitats with expert guides."
+      "description": "Get close to Jordan's wildlife in its natural habitats with expert guides.",
+      "bio": "Get close to Jordan's wildlife in its natural habitats."
     },
     {
       "id": 7,
       "title": "Walking",
       "image": "/images/tours/ajloun.jpg",
-      "description": "Leisurely walking tours in scenic areas, perfect for photography and exploration."
+      "description": "Leisurely walking tours in scenic areas, perfect for photography and exploration.",
+      "bio": "Leisurely walking tours in scenic areas, perfect for photography."
     }
   ]
 }

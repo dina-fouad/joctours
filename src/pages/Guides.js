@@ -6,17 +6,55 @@ import {
   CardContent,
   CardMedia,
   Button,
+  IconButton,
   useMediaQuery,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import MessageIcon from "@mui/icons-material/Message";
 import PublicIcon from "@mui/icons-material/Public";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useState, useRef } from "react";
 
 export default function GuidesGrid() {
   const { t } = useTranslation("guides");
   const guidesObject = t("guides", { returnObjects: true }) || {};
   const guides = Object.values(guidesObject);
   const isMobile = useMediaQuery("(max-width:600px)");
+
+  const cardsToShow = isMobile ? 1 : 3;
+  const [startIndex, setStartIndex] = useState(0);
+
+  /* ===== Swipe refs ===== */
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const distance = touchStartX.current - touchEndX.current;
+
+    if (distance > 50) handleNext(); // swipe left
+    if (distance < -50) handlePrev(); // swipe right
+  };
+
+  const handlePrev = () => {
+    setStartIndex((prev) => Math.max(prev - cardsToShow, 0));
+  };
+
+  const handleNext = () => {
+    setStartIndex((prev) =>
+      Math.min(prev + cardsToShow, guides.length - cardsToShow),
+    );
+  };
+
+  const visibleGuides = guides.slice(startIndex, startIndex + cardsToShow);
 
   return (
     <Box
@@ -41,7 +79,7 @@ export default function GuidesGrid() {
           fontWeight: 700,
           fontSize: { xs: 26, md: 38 },
           color: "#1b4d5c",
-          mb: 8,
+          mb: 4,
         }}
       >
         {t("title")}
@@ -49,16 +87,19 @@ export default function GuidesGrid() {
 
       {/* Grid */}
       <Box
+        onTouchStart={isMobile ? handleTouchStart : undefined}
+        onTouchMove={isMobile ? handleTouchMove : undefined}
+        onTouchEnd={isMobile ? handleTouchEnd : undefined}
         sx={{
-          display: "grid",
-          gridTemplateColumns: isMobile
-            ? "repeat(1, 1fr)"
-            : "repeat(auto-fit, minmax(260px, 1fr))",
-          gap: 6,
-          justifyItems: "center",
+          display: "flex",
+          gap: 3,
+          justifyContent: "center",
+          flexWrap: "nowrap",
+          overflow: "visible",
+          mt: 12,
         }}
       >
-        {guides.map((guide) => (
+        {visibleGuides.map((guide) => (
           <Card
             key={guide.id}
             sx={{
@@ -68,14 +109,27 @@ export default function GuidesGrid() {
               minHeight: 250,
               pt: 8,
               borderRadius: 4,
-              backgroundColor: "#ffffff",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
-              transition: "all 0.3s ease",
+
+              /* خلفية زجاجية ناعمة */
+              backgroundColor: "rgba(255, 255, 255, 0.75)",
+
+              /* إطار خفيف جدًا بلون الصفحة */
+              border: "1px solid rgba(27, 77, 92, 0.18)",
+
+              /* تأثير الزجاج */
+              backdropFilter: "blur(14px)",
+
+              /* ظل ناعم */
+              boxShadow: "0 12px 30px rgba(27, 77, 92, 0.12)",
+
+              transition: "all 0.35s ease",
               display: "flex",
               flexDirection: "column",
+
               "&:hover": {
-                transform: "translateY(-8px)",
-                boxShadow: "0 20px 45px rgba(0,0,0,0.2)",
+                transform: "translateY(-10px)",
+                boxShadow: "0 25px 50px rgba(27, 77, 92, 0.25)",
+                borderColor: "rgba(27, 77, 92, 0.35)",
               },
             }}
           >
@@ -90,7 +144,7 @@ export default function GuidesGrid() {
                 top: -70,
                 left: "50%",
                 transform: "translateX(-50%)",
-                border: "4px solid #fff",
+                border: "2px solid #fff",
                 backgroundColor: "#fff",
                 boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
               }}
@@ -109,19 +163,16 @@ export default function GuidesGrid() {
                 {guide.name}
               </Typography>
 
-              {/* Rating */}
               <Box display="flex" justifyContent="center" mb={1}>
                 {[...Array(5)].map((_, i) => (
                   <StarIcon key={i} sx={{ color: "#f5b50a" }} />
                 ))}
               </Box>
 
-              {/* Bio */}
               <Typography sx={{ fontSize: 14, color: "#555", mb: 2 }}>
                 {guide.bio}
               </Typography>
 
-              {/* Languages */}
               <Box
                 display="flex"
                 justifyContent="center"
@@ -136,35 +187,55 @@ export default function GuidesGrid() {
               </Box>
             </CardContent>
 
-            {/* Message Button Bottom */}
-            <Box
-              sx={{
-                pb: 2,
-                display: "flex",
-                justifyContent: "center", 
-              }}
-            >
+            {/* Message Button */}
+            <Box sx={{ pb: 2, display: "flex", justifyContent: "center" }}>
               <Button
                 startIcon={<MessageIcon />}
+                component="a"
+                href={`https://wa.me/${guide.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
                 sx={{
-                  px: 3, // عرض الزر
-                  py: 0.6, // بادنج عمودي صغير
+                  px: 3,
+                  py: 0.6,
                   borderRadius: 3,
                   textTransform: "none",
                   fontWeight: 600,
                   fontSize: 14,
                   backgroundColor: "#1b4d5c",
                   color: "#fff",
-                  "&:hover": {
-                    backgroundColor: "#163f4c",
-                  },
+                  "&:hover": { backgroundColor: "#163f4c" },
                 }}
               >
-                Message
+                {t("message")}
               </Button>
             </Box>
           </Card>
         ))}
+      </Box>
+
+      {/* Arrows */}
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={4}
+        mt={4}
+      >
+        <IconButton
+          onClick={handlePrev}
+          disabled={startIndex === 0}
+          sx={{ color: "#1b4d5c" }}
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
+
+        <IconButton
+          onClick={handleNext}
+          disabled={startIndex + cardsToShow >= guides.length}
+          sx={{ color: "#1b4d5c" }}
+        >
+          <ArrowForwardIosIcon />
+        </IconButton>
       </Box>
     </Box>
   );

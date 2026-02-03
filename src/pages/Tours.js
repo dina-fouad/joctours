@@ -115,7 +115,7 @@ export default function Tours() {
         <Typography
           sx={{
             fontWeight: 700,
-            fontSize: { xs: "24px", md: "36px" },
+            fontSize: { xs: "24px", md: "36px" }, // ✅ تعديل حجم الخط
             color: "#175260",
             mb: { xs: 4, md: 8 },
           }}
@@ -146,7 +146,7 @@ export default function Tours() {
             <Card
               key={tour.id}
               sx={{
-                width: isMobile ? 260 : 260, // تكبير الكارد على الموبايل
+                width: isMobile ? 260 : 260,
                 borderRadius: "20px",
                 overflow: "hidden",
                 transform: `rotate(${
@@ -162,7 +162,7 @@ export default function Tours() {
             >
               <CardMedia
                 component="img"
-                height={isMobile ? 300 : 320} // تكبير صورة الكارد على الموبايل
+                height={isMobile ? 300 : 320}
                 image={tour.image}
                 alt={tour.title}
                 sx={{ cursor: "pointer" }}
@@ -172,7 +172,7 @@ export default function Tours() {
               <CardContent sx={{ textAlign: "center" }}>
                 <Typography
                   fontWeight={600}
-                  fontSize={isMobile ? "18px" : "17px"} // تكبير العنوان على الموبايل
+                  fontSize={isMobile ? "18px" : "18px"} // ✅ حجم ثابت للكارد لكل الشاشات
                   sx={{ color: "#175260" }}
                 >
                   {tour.title}
@@ -180,7 +180,7 @@ export default function Tours() {
 
                 <Typography
                   sx={{
-                    fontSize: "14px", // تكبير صغير لنص Read More
+                    fontSize: "14px",
                     color: "#6aa6b6",
                     cursor: "pointer",
                   }}
@@ -235,7 +235,7 @@ export default function Tours() {
             <DialogContentText>{selectedTour.description}</DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseModal}>Close</Button>
+            <Button onClick={handleCloseModal}>{t("close")}</Button>
           </DialogActions>
         </Dialog>
       )}
