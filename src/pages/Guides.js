@@ -25,7 +25,7 @@ export default function GuidesGrid() {
   const cardsToShow = isMobile ? 1 : 3;
   const [startIndex, setStartIndex] = useState(0);
 
-  /* ===== Swipe refs ===== */
+ 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -40,8 +40,8 @@ export default function GuidesGrid() {
   const handleTouchEnd = () => {
     const distance = touchStartX.current - touchEndX.current;
 
-    if (distance > 50) handleNext(); // swipe left
-    if (distance < -50) handlePrev(); // swipe right
+    if (distance > 50) handleNext(); 
+    if (distance < -50) handlePrev(); 
   };
 
   const handlePrev = () => {

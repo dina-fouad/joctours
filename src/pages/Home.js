@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Tours from "./Tours";
 import Guides from "./Guides";
 import Programmes from "./Programmes";
+import Reviews from "../components/Reviews";
 
 const fadeUp = keyframes`
   from {
@@ -86,6 +87,9 @@ export default function Home() {
       >
         <Programmes />
       </Box>
+
+
+    <Reviews />
     </Box>
   );
 }
