@@ -36,7 +36,7 @@ export default function Header() {
   const navItems = [
     { key: "home", icon: <HomeIcon />, path: "/" },
     { key: "about", icon: <InfoIcon />, path: "/about" },
-    { key: "tours", icon: <TourIcon />, path: "/tours" },
+    { key: "programs", icon: <TourIcon />, path: "/programs" },
     { key: "contact", icon: <ContactMailIcon />, path: "/contact" },
   ];
 
