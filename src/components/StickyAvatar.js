@@ -15,7 +15,7 @@ export default function StickyAvatar() {
         position: "fixed",
         bottom: 20,
         right: 20,
-        width: 200, // حجم أكبر
+        width: 200, // حجم الشاشات الكبيرة يبقى كما هو
         height: "auto",
         cursor: "pointer",
         zIndex: 1000,
@@ -23,6 +23,10 @@ export default function StickyAvatar() {
         "&:hover .whatsapp-overlay": {
           opacity: 1,
           transform: "translateY(-10px) scale(1.2)",
+        },
+        // تعديلات للشاشات الصغيرة فقط
+        "@media (max-width:600px)": {
+          width: 120, // تصغير الحجم للشاشات الصغيرة
         }
       }}
     >
@@ -55,9 +59,12 @@ export default function StickyAvatar() {
           opacity: 0,
           transition: "all 0.3s ease",
           pointerEvents: "none", // لتجنب منع الضغط على الرابط
+          "@media (max-width:600px)": {
+            fontSize: 35, // تصغير حجم الأيقونة على الشاشات الصغيرة
+          }
         }}
       >
-        <WhatsAppIcon sx={{ fontSize: 50 }} />
+        <WhatsAppIcon sx={{ fontSize: 50, "@media (max-width:600px)": { fontSize: 30 } }} />
       </Box>
     </Box>
   );

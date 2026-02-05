@@ -5,10 +5,37 @@
     "tours": "Tours",
     "contact": "Contact"
   },
-  "lang": "RU",
+  "lang": "EN",
   "hero": {
     "title": "Discover Jordan",
     "subtitle": "Unforgettable journeys crafted just for you",
     "cta": "Book now"
-  }
+  },
+  "testimonial": "Testimonial",
+  "whatClientSay": "What Clients Say About Us",
+  "reviewAlt": "Review {{index}}",
+  "ratedByTravelers": "Rated by travelers on TripAdvisor",
+
+ 
+  "companyName": "Jordan Classical Tours",
+  "aboutDescription": "We provide authentic travel experiences in Jordan with classic touches and premium services for every traveler.",
+  "readMore": "Read More",
+  "quickLinks": "Quick Links",
+  "home": "Home",
+  "about": "About",
+  "tours": "Tours",
+  "contact": "Contact",
+  "specialOffers": "Special Offers",
+  "contactUs": "Contact Us",
+  "address": "Amman, Jordan",
+  "phone": "+962 7980 17138",
+  "email": "info@jctours.com",
+  "bookNow": "Book Now",
+  "followUs": "Follow Us",
+  "newsletter": "Subscribe to Newsletter",
+  "enterEmail": "Enter your email",
+  "subscribe": "Subscribe",
+  "allRightsReserved": "All rights reserved."
+
+
 }

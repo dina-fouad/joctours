@@ -10,5 +10,28 @@
     "title": "Откройте Иорданию",
     "subtitle": "Незабываемые путешествия, созданные специально для вас",
     "cta": "Забронировать сейчас"
-  }
+  },
+  "testimonial": "Отзывы",
+  "whatClientSay": "Что говорят клиенты о нас",
+  "reviewAlt": "Отзыв {{index}}",
+  "ratedByTravelers": "Оценено путешественниками на TripAdvisor",
+
+
+   "companyName": "Jordan Classical Tours",
+  "aboutDescription": "Мы предоставляем аутентичные путешествия по Иордании с классическим подходом и премиальными услугами для каждого путешественника.",
+  "readMore": "Подробнее",
+  "quickLinks": "Быстрые ссылки",
+  "specialOffers": "Специальные предложения",
+  "contactUs": "Свяжитесь с нами",
+  "address": "Амман, Иордания",
+  "phone": "+962 7980 17138",
+  "email": "info@jctours.com",
+  "bookNow": "Забронировать",
+  "followUs": "Следите за нами",
+  "newsletter": "Подписка на новости",
+  "enterEmail": "Введите ваш e-mail",
+  "subscribe": "Подписаться",
+  "allRightsReserved": "Все права защищены."
+
+
 }

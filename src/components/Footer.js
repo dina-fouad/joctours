@@ -1,8 +1,21 @@
 import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 import { Facebook, Instagram, Twitter, YouTube } from "@mui/icons-material";
 import { LocationOn, Phone, Email } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation("common");
+
+  const quickLinks = [
+    "home",
+    "about",
+    "tours",
+    "contact",
+    "specialOffers"
+  ];
+
+  const socialIcons = [Facebook, Instagram, Twitter, YouTube];
+
   return (
     <Box
       sx={{
@@ -83,10 +96,10 @@ export default function Footer() {
               mb: 2,
             }}
           >
-            Jordan Classical Tours
+            {t("companyName")}
           </Typography>
           <Typography sx={{ opacity: 0.8, mb: 2 }}>
-            We provide authentic travel experiences in Jordan with classic touches and premium services for every traveler.
+            {t("aboutDescription")}
           </Typography>
           <Button
             variant="outlined"
@@ -98,14 +111,14 @@ export default function Footer() {
               mt: 1,
             }}
           >
-            Read More
+            {t("readMore")}
           </Button>
         </Box>
 
         {/* 2️⃣ Quick Links */}
         <Box sx={{ flex: 1, width: { xs: "100%", md: "auto" } }}>
-          <Typography sx={{ fontWeight: 700, mb: 2 }}>Quick Links</Typography>
-          {["Home", "About", "Tours", "Contact", "Special Offers"].map((link, i) => (
+          <Typography sx={{ fontWeight: 700, mb: 2 }}>{t("quickLinks")}</Typography>
+          {quickLinks.map((link, i) => (
             <Button
               key={i}
               sx={{
@@ -116,25 +129,25 @@ export default function Footer() {
                 "&:hover": { color: "#00FFE0" },
               }}
             >
-              {link}
+              {t(link)}
             </Button>
           ))}
         </Box>
 
         {/* 3️⃣ Contact */}
         <Box sx={{ flex: 1, width: { xs: "100%", md: "auto" } }}>
-          <Typography sx={{ fontWeight: 700, mb: 2 }}>Contact Us</Typography>
+          <Typography sx={{ fontWeight: 700, mb: 2 }}>{t("contactUs")}</Typography>
           <Box sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}>
             <LocationOn sx={{ color: "#00FFE0" }} />
-            <Typography>Amman, Jordan</Typography>
+            <Typography>{t("address")}</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 1, gap: 1 }}>
             <Phone sx={{ color: "#00FFE0" }} />
-            <Typography>+962 7980 17138</Typography>
+            <Typography>{t("phone")}</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2, gap: 1 }}>
             <Email sx={{ color: "#00FFE0" }} />
-            <Typography>info@jctours.com</Typography>
+            <Typography>{t("email")}</Typography>
           </Box>
           <Button
             variant="outlined"
@@ -146,15 +159,15 @@ export default function Footer() {
               mt: 1,
             }}
           >
-            Book Now
+            {t("bookNow")}
           </Button>
         </Box>
 
         {/* 4️⃣ Follow & Newsletter */}
         <Box sx={{ flex: 1, width: { xs: "100%", md: "auto" } }}>
-          <Typography sx={{ fontWeight: 700, mb: 2 }}>Follow Us</Typography>
+          <Typography sx={{ fontWeight: 700, mb: 2 }}>{t("followUs")}</Typography>
           <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
-            {[Facebook, Instagram, Twitter, YouTube].map((Icon, i) => (
+            {socialIcons.map((Icon, i) => (
               <IconButton
                 key={i}
                 sx={{
@@ -167,10 +180,10 @@ export default function Footer() {
               </IconButton>
             ))}
           </Box>
-          <Typography sx={{ fontWeight: 700, mb: 1 }}>Subscribe to Newsletter</Typography>
+          <Typography sx={{ fontWeight: 700, mb: 1 }}>{t("newsletter")}</Typography>
           <Box sx={{ display: "flex", gap: 1, flexDirection: { xs: "column", sm: "row" } }}>
             <TextField
-              placeholder="Enter your email"
+              placeholder={t("enterEmail")}
               variant="outlined"
               size="small"
               sx={{
@@ -194,7 +207,7 @@ export default function Footer() {
                 width: { xs: "100%", sm: "auto" },
               }}
             >
-              Subscribe
+              {t("subscribe")}
             </Button>
           </Box>
         </Box>
@@ -205,7 +218,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <Typography sx={{ textAlign: "center", fontSize: 14, opacity: 0.7 }}>
-        © {new Date().getFullYear()} Jordan Classical Tours. All rights reserved.
+        © {new Date().getFullYear()} {t("companyName")}. {t("allRightsReserved")}
       </Typography>
     </Box>
   );

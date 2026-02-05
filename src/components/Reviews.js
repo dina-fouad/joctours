@@ -2,11 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
 export default function Reviews() {
+  const { t } = useTranslation("common"); // استخدام namespace common
   const images = [
     "/images/reviews/r1.png",
     "/images/reviews/r2.png",
@@ -75,7 +77,7 @@ export default function Reviews() {
           zIndex: 1,
         }}
       >
-        Testimonial
+        {t("testimonial")}
       </Typography>
 
       <Typography
@@ -88,7 +90,7 @@ export default function Reviews() {
           zIndex: 1,
         }}
       >
-        What Client Say About Us
+        {t("whatClientSay")}
       </Typography>
 
       {/* Slider container */}
@@ -161,7 +163,7 @@ export default function Reviews() {
                   <Box
                     sx={{
                       position: "relative",
-                      width: "100%", // احتفظ بحجم الصورة كما هي
+                      width: "100%", 
                       maxWidth: 700,
                       transform: isActive ? "scale(1)" : "scale(0.95)",
                       opacity: isActive ? 1 : 0.45,
@@ -177,7 +179,7 @@ export default function Reviews() {
                     <Box
                       component="img"
                       src={img}
-                      alt={`Review ${i + 1}`}
+                      alt={t("reviewAlt", { index: i + 1 })}
                       sx={{
                         width: "100%",
                         display: "block",
@@ -217,7 +219,7 @@ export default function Reviews() {
               borderRadius: 50,
               textDecoration: "none",
               fontWeight: 600,
-             fontSize: { xs: 13, md: 15, lg: 16 },
+              fontSize: { xs: 13, md: 15, lg: 16 },
               color: "#1b4d5c",
               border: "2px solid #1b4d5c",
               transition: "0.3s ease",
@@ -230,12 +232,14 @@ export default function Reviews() {
           >
             <Box
               component="span"
-              sx={{ width: { xs: 16, md: 18 }, height: { xs: 16, md: 18 }, display: "inline-block" }}
+              sx={{ width: { xs: 24, md: 28 }, height: { xs: 24, md: 28 }, display: "inline-block" }}
               dangerouslySetInnerHTML={{
                 __html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#34E07D"><path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm0 372c-90.5 0-164-73.5-164-164S165.5 92 256 92s164 73.5 164 164-73.5 164-164 164zm0-272a108 108 0 100 216 108 108 0 000-216zm0 192a84 84 0 110-168 84 84 0 010 168zm0-144a60 60 0 100 120 60 60 0 000-120z"/></svg>`,
               }}
             />
-             <Box sx={{ fontSize: { xs: 13, md: 15, lg: 16 } }}>Rated by travelers on TripAdvisor</Box>
+            <Box sx={{ fontSize: { xs: 13, md: 15, lg: 16 } }}>
+              {t("ratedByTravelers")}
+            </Box>
           </Box>
         </Box>
       </Box>
