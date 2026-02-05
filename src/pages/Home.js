@@ -7,7 +7,7 @@ import Guides from "./Guides";
 import Programmes from "./Programmes";
 import Reviews from "../components/Reviews";
 import Footer from "../components/Footer";
-import StickyAvatar from "../components/StickyAvatar"
+
 
 const fadeUp = keyframes`
   from {
@@ -103,7 +103,7 @@ export default function Home() {
       </Box>
 
       <Footer />
-    <StickyAvatar />
+  
     </Box>
   );
 }

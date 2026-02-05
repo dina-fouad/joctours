@@ -10,6 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
+
 export default function Programmes() {
   const { t } = useTranslation("programs");
 
@@ -34,6 +35,7 @@ export default function Programmes() {
   }));
 
   return (
+  
     <Box sx={{ position: "relative", py: 10, px: { xs: 2, md: 10 } }}>
       {/* الخلفية */}
       <Box
@@ -179,5 +181,7 @@ export default function Programmes() {
         ))}
       </Box>
     </Box>
+  
+  
   );
 }
