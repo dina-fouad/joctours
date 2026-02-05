@@ -6,6 +6,8 @@ import Tours from "./Tours";
 import Guides from "./Guides";
 import Programmes from "./Programmes";
 import Reviews from "../components/Reviews";
+import Footer from "../components/Footer";
+import StickyAvatar from "../components/StickyAvatar"
 
 const fadeUp = keyframes`
   from {
@@ -33,8 +35,8 @@ export default function Home() {
           }
         },
         {
-          threshold: 0.05, // 🔥 أقل threshold
-          rootMargin: "0px 0px -100px 0px", // 🔥 مهم للموبايل
+          threshold: 0.05,
+          rootMargin: "0px 0px -100px 0px",
         }
       );
 
@@ -49,15 +51,14 @@ export default function Home() {
 
   const [guidesRef, guidesVisible] = useScrollAnimation();
   const [programmesRef, programmesVisible] = useScrollAnimation();
+  const [reviewsRef, reviewsVisible] = useScrollAnimation(); // ✅ جديد
 
   return (
     <Box>
       {/* Header بدون أنميشن */}
-      <Box>
-        <Header />
-      </Box>
+      <Header />
 
-      {/* Tours بدون أنميشن (كما طلبت) */}
+      {/* Tours بدون أنميشن */}
       <Tours />
 
       {/* Guides */}
@@ -88,8 +89,21 @@ export default function Home() {
         <Programmes />
       </Box>
 
+      {/* Reviews ✅ */}
+      <Box
+        ref={reviewsRef}
+        sx={{
+          opacity: reviewsVisible ? 1 : 0,
+          animation: reviewsVisible
+            ? `${fadeUp} 1s ease-out forwards`
+            : "none",
+        }}
+      >
+        <Reviews />
+      </Box>
 
-    <Reviews />
+      <Footer />
+    <StickyAvatar />
     </Box>
   );
 }

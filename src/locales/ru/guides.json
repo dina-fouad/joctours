@@ -5,7 +5,7 @@
   "guides": {
     "Saed": {
       "id": 1,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g5.png",
       "name": "Саед",
       "bio": "Опытный гид в Москве. Любит культурные туры и историю.",
       "language": "Русский, арабский",
@@ -13,7 +13,7 @@
     },
     "Thaer": {
       "id": 2,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g2.png",
       "name": "Таер",
       "bio": "Специализируется на городских турах и художественных галереях. Дружелюбный и знающий.",
       "language": "Русский, арабский, английский",
@@ -21,7 +21,7 @@
     },
     "Fadi": {
       "id": 3,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g3.png",
       "name": "Фади",
       "bio": "Эксперт по приключенческим турам и поездкам на природу. Весёлый и надёжный.",
       "language": "Русский, арабский",
@@ -29,7 +29,7 @@
     },
     "Marwan": {
       "id": 4,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g4.png",
       "name": "Марван",
       "bio": "Эксперт по приключенческим турам и поездкам на природу. Весёлый и надёжный.",
       "language": "Русский, арабский",

@@ -6,7 +6,7 @@
   "guides": {
     "Saed": {
       "id": 1,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g5.png",
       "name": "Saed",
       "bio": "Experienced guide in Moscow. Loves cultural tours and history.",
       "language": "Russian, Arabic",
@@ -14,7 +14,7 @@
     },
     "Thaer": {
       "id": 2,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g2.png",
       "name": "Thaer",
       "bio": "Specializes in city tours and art galleries. Friendly and knowledgeable.",
       "language": "Russian, Arabic, English",
@@ -22,7 +22,7 @@
     },
     "Fadi": {
       "id": 3,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g3.png",
       "name": "Fadi",
       "bio": "Expert in adventure tours and nature trips. Fun and reliable.",
       "language": "Russian, Arabic",
@@ -30,7 +30,7 @@
     },
     "Marwan": {
       "id": 4,
-      "image": "/images/guides/dinaPic.jpg",
+      "image": "/images/guides/g4.png",
       "name": "Marwan",
       "bio": "Expert in adventure tours and nature trips. Fun and reliable.",
       "language": "Russian, Arabic",

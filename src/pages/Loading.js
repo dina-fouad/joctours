@@ -21,13 +21,11 @@ export default function Loading() {
     }, 1200);
   };
 
-  // 🔄 دوران المدار
   const rotateOrbit = keyframes`
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
   `;
 
-  // 🧭 نصف قطر المدار (كبرناه)
   const orbitRadius = isMobile ? 85 : 130;
 
   return (
@@ -39,11 +37,10 @@ export default function Loading() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #1e3c72, #2a5298, #00b0ff)",
+        background: "linear-gradient(135deg, #1b4d5c, #1da9cc)",
         overflow: "hidden",
       }}
     >
-      {/* 🎥 فيديو مخفي */}
       <video
         src="/videos/video.mp4"
         autoPlay
@@ -52,11 +49,10 @@ export default function Loading() {
         style={{ display: "none" }}
       />
 
-      {/* 🌍 الكرة الأرضية */}
       <PublicIcon
         sx={{
           fontSize: isMobile ? 100 : 140,
-          color: "#FFD700",
+          color: "#00FFE0",
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -65,7 +61,6 @@ export default function Loading() {
         }}
       />
 
-      {/* 🌀 مدار الطائرة */}
       <Box
         sx={{
           position: "absolute",
@@ -76,27 +71,25 @@ export default function Loading() {
           animation: `${rotateOrbit} 3.5s linear infinite`,
         }}
       >
-        {/* ✈️ الطائرة */}
         <AirplanemodeActiveIcon
           sx={{
             fontSize: isMobile ? 30 : 45,
-            color: "#FF5722",
+            color: "#0ae5ec", // ✅ لون الطائرة الجديد
             position: "absolute",
-            top: -18, // 👈 مسافة إضافية عن المدار
+            top: -18,
             left: "50%",
-            transform: `
-              translateX(-50%)
-              rotate(90deg)
-            `,
+            transform: `translateX(-50%) rotate(90deg)`,
           }}
         />
       </Box>
 
-      {/* ⏳ تحميل */}
       {!videoLoaded && (
         <CircularProgress
-          color="inherit"
-          sx={{ position: "absolute", bottom: isMobile ? 20 : 50 }}
+          sx={{
+            position: "absolute",
+            bottom: isMobile ? 20 : 50,
+            color: "#00FFE0",
+          }}
         />
       )}
     </Box>
