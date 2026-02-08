@@ -7,14 +7,26 @@ export default function Footer() {
   const { t } = useTranslation("common");
 
   const quickLinks = [
-    "home",
-    "about",
-    "tours",
-    "contact",
-    "specialOffers"
+    { key: "home", label: t("nav.home") },
+    { key: "about", label: t("nav.about") },
+    { key: "programs", label: t("nav.programs") },
+    { key: "contact", label: t("nav.contact") }
   ];
 
   const socialIcons = [Facebook, Instagram, Twitter, YouTube];
+
+  const handleQuickLinkClick = (key) => {
+    if (key === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (key === "programs") {
+      const section = document.getElementById("program-section");
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    } else if (key === "contact") {
+      window.location.href = "/contact";
+    } else if (key === "about") {
+      window.location.href = "/about";
+    }
+  };
 
   return (
     <Box
@@ -43,10 +55,7 @@ export default function Footer() {
           preserveAspectRatio="none"
           style={{ width: "100%", height: 80, display: "block" }}
         >
-          <path
-            d="M0,0 C300,50 1000,0 1200,120 L1200,0 L0,0 Z"
-            fill="#eef3f5"
-          />
+          <path d="M0,0 C300,50 1000,0 1200,120 L1200,0 L0,0 Z" fill="#eef3f5" />
         </svg>
       </Box>
 
@@ -85,7 +94,7 @@ export default function Footer() {
           mb: 8,
         }}
       >
-        {/* 1️⃣ About */}
+        {/* 1️⃣ About Company */}
         <Box sx={{ flex: 1, width: { xs: "100%", md: "auto" } }}>
           <Typography
             sx={{
@@ -121,6 +130,7 @@ export default function Footer() {
           {quickLinks.map((link, i) => (
             <Button
               key={i}
+              onClick={() => handleQuickLinkClick(link.key)}
               sx={{
                 display: "block",
                 color: "#fff",
@@ -129,7 +139,7 @@ export default function Footer() {
                 "&:hover": { color: "#00FFE0" },
               }}
             >
-              {t(link)}
+              {link.label}
             </Button>
           ))}
         </Box>

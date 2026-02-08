@@ -17,7 +17,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import TourIcon from "@mui/icons-material/CardTravel";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
@@ -34,11 +33,23 @@ export default function Header() {
   const handleMenuClose = () => setAnchorEl(null);
 
   const navItems = [
-    { key: "home", icon: <HomeIcon />, path: "/" },
-    { key: "about", icon: <InfoIcon />, path: "/about" },
-    { key: "programs", icon: <TourIcon />, path: "/programs" },
-    { key: "contact", icon: <ContactMailIcon />, path: "/contact" },
+    { key: "home", icon: <HomeIcon /> },
+    { key: "about", icon: <InfoIcon /> },
+    { key: "programs", icon: <TourIcon /> }, // سيتم scroll
+    { key: "contact", icon: <ContactMailIcon /> },
   ];
+
+  const handleNavClick = (key) => {
+    if (key === "programs") {
+      const section = document.getElementById("program-section");
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    } else if (key === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const pathMap = { about: "/about", contact: "/contact" };
+      window.location.href = pathMap[key] || "/";
+    }
+  };
 
   return (
     <Box
@@ -65,7 +76,6 @@ export default function Header() {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          
         }}
       >
         <source src="/videos/video.mp4" type="video/mp4" />
@@ -78,21 +88,18 @@ export default function Header() {
         sx={{ background: "transparent", px: isMobile ? 2 : 6, zIndex: 2 }}
       >
         <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          {/* أيقونة الهامبرغر في الموبايل */}
           {isMobile && (
             <IconButton color="inherit" onClick={handleMenuOpen} size="large">
               <MenuIcon sx={{ fontSize: "2rem" }} />
             </IconButton>
           )}
 
-          {/* روابط الناف بار للشاشات الكبيرة */}
           {!isMobile && (
             <Box sx={{ display: "flex", gap: 4, alignItems: "center" }}>
               {navItems.map((item) => (
                 <Button
                   key={item.key}
-                  component={Link}
-                  to={item.path}
+                  onClick={() => handleNavClick(item.key)}
                   sx={{
                     color: "#fff",
                     fontSize: "1.2rem",
@@ -168,9 +175,10 @@ export default function Header() {
               {navItems.map((item) => (
                 <MenuItem
                   key={item.key}
-                  component={Link}
-                  to={item.path}
-                  onClick={handleMenuClose}
+                  onClick={() => {
+                    handleMenuClose();
+                    handleNavClick(item.key);
+                  }}
                   sx={{
                     fontSize: "1.15rem",
                     color: "#fff",
@@ -225,8 +233,7 @@ export default function Header() {
           textAlign: "center",
           color: "#fff",
           px: 2,
-          textShadow:
-            "0 2px 8px rgba(0,0,0,0.6), 0 0 18px rgba(0,176,255,0.45)",
+          textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 18px rgba(0,176,255,0.45)",
         }}
       >
         <Typography variant={isMobile ? "h4" : "h2"} fontWeight="bold">
@@ -274,57 +281,51 @@ export default function Header() {
           zIndex: 1,
         }}
       >
-       <svg
-  xmlns="http://www.w3.org/2000/svg"
-  xmlnsXlink="http://www.w3.org/1999/xlink"
-  viewBox="0 0 1200 120"
-  preserveAspectRatio="none"
-  style={{ display: "block", width: "100%", minHeight: "80px" }}
->
-  <defs>
-    <pattern
-      id="imgPattern"
-      patternUnits="userSpaceOnUse"
-      width="1000"
-      height="120"
-    >
-      <image
-        x="0"
-        y="0"
-        width="1200"
-        height="120"
-        xlinkHref="/images/cover.png"
-        preserveAspectRatio="xMidYMid slice"
-      />
-      {/* طبقة بيضاء شفافة لتخفيف الصورة */}
-      <rect
-        x="0"
-        y="0"
-        width="1200"
-        height="120"
-        fill="white"
-        opacity="0.8"  // اضبطي الرقم حسب درجة البهتان المطلوبة
-      />
-    </pattern>
-  </defs>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ display: "block", width: "100%", minHeight: "80px" }}
+        >
+          <defs>
+            <pattern
+              id="imgPattern"
+              patternUnits="userSpaceOnUse"
+              width="1000"
+              height="120"
+            >
+              <image
+                x="0"
+                y="0"
+                width="1200"
+                height="120"
+                xlinkHref="/images/cover.png"
+                preserveAspectRatio="xMidYMid slice"
+              />
+              <rect
+                x="0"
+                y="0"
+                width="1200"
+                height="120"
+                fill="white"
+                opacity={0.8}
+              />
+            </pattern>
+          </defs>
 
-  <path
-    d="M0,8 C300,108 900,8 1200,88 L1200,120 L0,120 Z"
-    fill="#d0ebff"
-  />
+          <path d="M0,8 C300,108 900,8 1200,88 L1200,120 L0,120 Z" fill="#d0ebff" />
 
-  <path
-    d="M0,0 C300,100 900,0 1200,80 L1200,120 L0,120 Z"
-    fill="url(#imgPattern)"
-    style={{
-      filter: `
-        drop-shadow(0 3px 6px rgba(0,0,0,0.12))
-        drop-shadow(0 4px 10px rgba(8, 58, 81, 0.37))
-      `,
-    }}
-  />
-</svg>
-
+          <path
+            d="M0,0 C300,100 900,0 1200,80 L1200,120 L0,120 Z"
+            fill="url(#imgPattern)"
+            style={{
+              filter: `
+                drop-shadow(0 3px 6px rgba(0,0,0,0.12))
+                drop-shadow(0 4px 10px rgba(8, 58, 81, 0.37))
+              `,
+            }}
+          />
+        </svg>
       </Box>
     </Box>
   );

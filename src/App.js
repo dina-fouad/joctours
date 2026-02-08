@@ -26,7 +26,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/guides" element={<Guides />} />
-        <Route path="/programmes" element={<Programmes />} />
+        <Route path="/programs" element={<Programmes />} />
         <Route path="/tours" element={<Tours />} />
         <Route path="/program/:programKey" element={<ProgramCard />} />
       </Routes>
