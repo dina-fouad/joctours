@@ -60,7 +60,7 @@ export default function Programmes() {
           left: 0,
           width: "100%",
           height: "50vh",
-          bgcolor: "rgba(255, 255, 255, 0.63)",
+          bgcolor: "rgba(255, 255, 255, 0.76)",
           zIndex: -1,
         }}
       />

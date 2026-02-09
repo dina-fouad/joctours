@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PublicIcon from "@mui/icons-material/Public";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -36,28 +36,12 @@ export default function AboutUs() {
     { name: "David Brown", role: "Marketing Lead", img: "/images/team4.jpg" },
   ];
 
-  // ===== Our Story Data =====
-  const story = [
-    {
-      title: "The Beginning",
-      desc: "Founded in 2010, our passion for luxury travel began with a simple mission: create unforgettable journeys.",
-      img: "/images/story1.jpg",
-    },
-    {
-      title: "First Luxury Tour",
-      desc: "In 2012, we launched our first curated luxury tour, delivering a unique and personalized experience.",
-      img: "/images/story2.jpg",
-    },
-    {
-      title: "Global Expansion",
-      desc: "By 2017, we expanded internationally, bringing our tailored travel experiences to clients worldwide.",
-      img: "/images/story3.jpg",
-    },
-    {
-      title: "Today",
-      desc: "Now, we continue to craft extraordinary journeys, combining luxury, culture, and adventure for our clients.",
-      img: "/images/story4.jpg",
-    },
+  // ===== Timeline / Story =====
+  const timeline = [
+    { year: "2010", event: "Company Founded" },
+    { year: "2012", event: "First Luxury Tour Organized" },
+    { year: "2017", event: "Global Expansion Started" },
+    { year: "2023", event: "Awarded Best Travel Experience" },
   ];
 
   return (
@@ -239,7 +223,7 @@ export default function AboutUs() {
         </Box>
       </Box>
 
-      {/* ===== OUR STORY WITH IMAGES ===== */}
+      {/* ===== TIMELINE / OUR STORY ===== */}
       <Box sx={{ py: 14, px: { xs: 3, md: 12 }, background: "#f0f8fb" }}>
         <Typography
           variant="h4"
@@ -253,42 +237,39 @@ export default function AboutUs() {
 
         <Box
           sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "1fr", md: "repeat(2,1fr)" },
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            justifyContent: "space-between",
             gap: 8,
           }}
         >
-          {story.map((item, i) => (
-            <Card
+          {timeline.map((item, i) => (
+            <Box
               key={i}
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                alignItems: "center",
-                gap: 3,
-                p: 3,
-                borderRadius: 4,
-                boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
-              }}
+              style={{ textAlign: "center", flex: 1 }}
             >
+              {/* أيقونة لكل سنة */}
               <Box
-                component="img"
-                src={item.img}
-                alt={item.title}
                 sx={{
-                  width: { xs: "100%", md: 150 },
-                  height: 120,
-                  objectFit: "cover",
-                  borderRadius: 2,
+                  width: 60,
+                  height: 60,
+                  mx: "auto",
+                  mb: 2,
+                  borderRadius: "50%",
+                  background: "#00FFE0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#1b4d5c",
+                  fontWeight: 700,
+                  fontSize: 18,
                 }}
-              />
-              <Box>
-                <Typography fontWeight={700} mb={1}>
-                  {item.title}
-                </Typography>
-                <Typography sx={{ opacity: 0.8 }}>{item.desc}</Typography>
+              >
+                {item.year}
               </Box>
-            </Card>
+              <Typography sx={{ opacity: 0.8 }}>{item.event}</Typography>
+            </Box>
           ))}
         </Box>
       </Box>
