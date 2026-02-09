@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -17,11 +17,7 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Menu,
-  MenuItem,
-  ListItemIcon as MUIListItemIcon,
   useMediaQuery,
-  Grow,
 } from "@mui/material";
 
 import { keyframes } from "@mui/system";
@@ -31,27 +27,20 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import PublicIcon from "@mui/icons-material/Public";
 import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import TourIcon from "@mui/icons-material/CardTravel";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
+import PublicIcon from "@mui/icons-material/Public";
 
 // ======= حركة الصورة Hero =======
 const zoomFade = keyframes`
-  0% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05) translateY(-10px);
-    opacity: 0.95;
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  50% { transform: scale(1.05) translateY(-10px); opacity: 0.95; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+`;
+
+// ======= انيميشن دخول العناصر =======
+const fadeInUp = keyframes`
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 `;
 
 export default function ProgramCard() {
@@ -67,33 +56,6 @@ export default function ProgramCard() {
     i18n.changeLanguage(i18n.language === "en" ? "ru" : "en");
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
-  const handleMenuClose = () => setAnchorEl(null);
-
-  // ==== NAVBAR LABELS مباشرة داخل الكود ====
-  const navLabels = {
-    en: {
-      home: "Home",
-      about: "About Us",
-      tours: "Tours",
-      contact: "Contact",
-    },
-    ru: {
-      home: "Главная",
-      about: "О нас",
-      tours: "Туры",
-      contact: "Контакты",
-    },
-  };
-
-  const navItems = [
-    { key: "home", icon: <HomeIcon />, path: "/" },
-    { key: "about", icon: <InfoIcon />, path: "/about" },
-    { key: "tours", icon: <TourIcon />, path: "/tours" },
-    { key: "contact", icon: <ContactMailIcon />, path: "/contact" },
-  ];
-
   const program = t(programKey, { returnObjects: true });
 
   if (!program || !program.title) {
@@ -104,98 +66,50 @@ export default function ProgramCard() {
     );
   }
 
-  // ==== دالة لجلب النص المترجم من navLabels ====
-  const getNavLabel = (key) => {
-    const lang = i18n.language;
-    return navLabels[lang]?.[key] || key;
-  };
-
   return (
     <Box sx={{ bgcolor: "#fff" }}>
       {/* ===== NAVBAR ===== */}
-      <AppBar position="sticky" color="default" elevation={1} sx={{ bgcolor: "#fff" }}>
-        <Toolbar sx={{ justifyContent: "space-between", px: { xs: 1, md: 6 } }}>
-          {isMobile && (
-            <IconButton color="inherit" onClick={handleMenuOpen} size="large">
-              <MenuIcon />
-            </IconButton>
-          )}
-
-          {!isMobile && (
-            <Box sx={{ display: "flex", gap: { xs: 1, md: 4 }, alignItems: "center" }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.key}
-                  component={Link}
-                  to={item.path}
-                  sx={{
-                    color: "#1b4d5c",
-                    fontSize: { xs: "0.85rem", md: "1rem" },
-                    fontWeight: 600,
-                    textTransform: "none",
-                    position: "relative",
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: -4,
-                      left: 0,
-                      width: 0,
-                      height: 3,
-                      bgcolor: "#1da9cc",
-                      borderRadius: 2,
-                      transition: "width 0.3s ease",
-                    },
-                    "&:hover::after": { width: "100%" },
-                  }}
-                >
-                  {getNavLabel(item.key)}
-                </Button>
-              ))}
-            </Box>
-          )}
+      <AppBar
+        position="sticky"
+        color="default"
+        elevation={1}
+        sx={{
+          bgcolor: "#fff",
+          height: isMobile ? 40 : 50,
+          transition: "height 0.3s ease",
+        }}
+      >
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            px: { xs: 1, md: 6 },
+            minHeight: "inherit",
+          }}
+        >
+          <Button
+            component={Link}
+            to="/"
+            startIcon={<HomeIcon fontSize="small" />}
+            sx={{
+              color: "#1b4d5c",
+              fontWeight: 700,
+              textTransform: "none",
+              fontSize: { xs: 12, md: 14 },
+            }}
+          >
+            Back
+          </Button>
 
           <IconButton
             onClick={toggleLanguage}
-            sx={{ color: "#1b4d5c", fontSize: isMobile ? 28 : 32 }}
+            sx={{
+              color: "#1b4d5c",
+              fontSize: { xs: 20, md: 28 },
+            }}
             size="large"
           >
             <PublicIcon fontSize="inherit" />
           </IconButton>
-
-          {isMobile && (
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{ vertical: "top", horizontal: "left" }}
-              transformOrigin={{ vertical: "top", horizontal: "left" }}
-              TransitionComponent={Grow}
-              PaperProps={{
-                sx: {
-                  backgroundColor: "rgba(255,255,255,0.95)",
-                  backdropFilter: "blur(8px)",
-                  borderRadius: 2,
-                  minWidth: 180,
-                  p: 1,
-                },
-              }}
-            >
-              {navItems.map((item) => (
-                <MenuItem
-                  key={item.key}
-                  component={Link}
-                  to={item.path}
-                  onClick={handleMenuClose}
-                  sx={{ fontWeight: 600, color: "#1b4d5c" }}
-                >
-                  <MUIListItemIcon sx={{ color: "#1b4d5c", minWidth: 30 }}>
-                    {item.icon}
-                  </MUIListItemIcon>
-                  {getNavLabel(item.key)}
-                </MenuItem>
-              ))}
-            </Menu>
-          )}
         </Toolbar>
       </AppBar>
 
@@ -233,21 +147,13 @@ export default function ProgramCard() {
             left: { xs: 16, md: 80 },
             color: "#fff",
             maxWidth: { xs: "80%", md: 700 },
+            animation: `${fadeInUp} 0.8s ease-out`,
           }}
         >
-          <Typography
-            variant="h5"
-            fontWeight={900}
-            sx={{ textShadow: "2px 2px 12px rgba(0,0,0,0.5)" }}
-            mb={1}
-          >
+          <Typography variant="h5" fontWeight={900} sx={{ textShadow: "2px 2px 12px rgba(0,0,0,0.5)" }} mb={1}>
             {t(`hero.title`, { defaultValue: program.title })}
           </Typography>
-          <Typography
-            variant="body1"
-            sx={{ textShadow: "1px 1px 8px rgba(0,0,0,0.5)" }}
-            mb={2}
-          >
+          <Typography variant="body1" sx={{ textShadow: "1px 1px 8px rgba(0,0,0,0.5)" }} mb={2}>
             {t(`hero.subtitle`, { defaultValue: program.subtitle })}
           </Typography>
           <Chip
@@ -267,6 +173,7 @@ export default function ProgramCard() {
 
       {/* ===== INFO BAR, Cities, Program Timeline, Not Included ===== */}
       <Box sx={{ px: { xs: 2, md: 10 }, py: { xs: 4, md: 8 } }}>
+        {/* Info Bar */}
         <Paper
           elevation={3}
           sx={{
@@ -277,6 +184,7 @@ export default function ProgramCard() {
             mb: 4,
             borderRadius: 4,
             bgcolor: "#f0f9fb",
+            animation: `${fadeInUp} 0.8s ease-out`,
           }}
         >
           <Box display="flex" alignItems="center" gap={1}>
@@ -315,18 +223,28 @@ export default function ProgramCard() {
           </Box>
         </Paper>
 
-        {/* ===== Cities Visited ===== */}
+        {/* Cities Visited */}
         <Typography
           variant="h5"
           fontWeight={800}
           mb={2}
           color="#1b4d5c"
           letterSpacing={0.5}
+          sx={{ animation: `${fadeInUp} 0.8s ease-out 0.1s forwards`, opacity: 0 }}
         >
           {t("citiesVisited", { defaultValue: "Cities Visited" })}
         </Typography>
-        <Box mb={4} sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-          {program.cities?.map((city) => (
+        <Box
+          mb={4}
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1,
+            animation: `${fadeInUp} 0.8s ease-out 0.2s forwards`,
+            opacity: 0,
+          }}
+        >
+          {program.cities?.map((city, idx) => (
             <Chip
               key={city}
               icon={<PlaceOutlinedIcon />}
@@ -338,6 +256,8 @@ export default function ProgramCard() {
                 py: 0.5,
                 px: 1.5,
                 fontSize: { xs: 12, md: 14 },
+                animation: `${fadeInUp} 0.8s ease-out ${0.2 + idx * 0.1}s forwards`,
+                opacity: 0,
               }}
             />
           ))}
@@ -345,13 +265,14 @@ export default function ProgramCard() {
 
         <Divider sx={{ my: 4 }} />
 
-        {/* ===== Program Timeline ===== */}
+        {/* Program Timeline */}
         <Typography
           variant="h5"
           fontWeight={900}
           mb={4}
           color="#1b4d5c"
           letterSpacing={1}
+          sx={{ animation: `${fadeInUp} 0.8s ease-out 0.3s forwards`, opacity: 0 }}
         >
           {t("programTitle", { defaultValue: "Program" })}
         </Typography>
@@ -367,6 +288,8 @@ export default function ProgramCard() {
               borderRadius: 4,
               bgcolor: "#f4fafc",
               boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+              animation: `${fadeInUp} 0.8s ease-out ${0.4 + index * 0.1}s forwards`,
+              opacity: 0,
             }}
           >
             <Box
@@ -393,49 +316,42 @@ export default function ProgramCard() {
                 }}
               />
             )}
-            <Typography
-              fontWeight={700}
-              mb={1}
-              color="#1b4d5c"
-              fontSize={{ xs: 14, md: 18 }}
-            >
+            <Typography fontWeight={700} mb={1} color="#1b4d5c" fontSize={{ xs: 14, md: 18 }}>
               {day.day} — {day.title}
             </Typography>
-            <Typography
-              color="text.secondary"
-              fontSize={{ xs: 12, md: 16 }}
-              lineHeight={1.6}
-            >
+            <Typography color="text.secondary" fontSize={{ xs: 12, md: 16 }} lineHeight={1.6}>
               {day.description}
             </Typography>
           </Box>
         ))}
 
-        {/* ===== Not Included ===== */}
+        {/* Not Included */}
         <Typography
           variant="subtitle2"
           fontWeight={600}
           mb={1}
           color="#a0a0a0"
+          sx={{ animation: `${fadeInUp} 0.8s ease-out 0.5s forwards`, opacity: 0 }}
         >
-          {t("notIncludedTitle", {
-            defaultValue: "Not Included in the Tour Price",
-          })}
+          {t("notIncludedTitle", { defaultValue: "Not Included in the Tour Price" })}
         </Typography>
         <List sx={{ mb: 8 }}>
-          {program.notIncluded?.map((item) => (
-            <ListItem key={item} disableGutters sx={{ py: 0.5 }}>
+          {program.notIncluded?.map((item, idx) => (
+            <ListItem
+              key={item}
+              disableGutters
+              sx={{
+                py: 0.5,
+                animation: `${fadeInUp} 0.8s ease-out ${0.5 + idx * 0.1}s forwards`,
+                opacity: 0,
+              }}
+            >
               <ListItemIcon sx={{ minWidth: 28 }}>
-                <CancelOutlinedIcon
-                  sx={{ color: "#c62828", fontSize: { xs: 16, md: 18 } }}
-                />
+                <CancelOutlinedIcon sx={{ color: "#c62828", fontSize: { xs: 16, md: 18 } }} />
               </ListItemIcon>
               <ListItemText
                 primary={item}
-                primaryTypographyProps={{
-                  fontSize: { xs: 12, md: 14 },
-                  color: "#666",
-                }}
+                primaryTypographyProps={{ fontSize: { xs: 12, md: 14 }, color: "#666" }}
               />
             </ListItem>
           ))}
