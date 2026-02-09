@@ -1,221 +1,134 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Typography,
   Button,
   IconButton,
-  Menu,
-  MenuItem,
-  useMediaQuery,
-  Grow,
   Card,
+  AppBar,
+  Toolbar,
+  useMediaQuery,
+  Avatar,
 } from "@mui/material";
-import { AppBar, Toolbar } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-
-// ===== Icons =====
-import MenuIcon from "@mui/icons-material/Menu";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PublicIcon from "@mui/icons-material/Public";
-import HomeIcon from "@mui/icons-material/Home";
-import InfoIcon from "@mui/icons-material/Info";
-import TourIcon from "@mui/icons-material/CardTravel";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function AboutUs() {
   const { t, i18n } = useTranslation("common");
+  const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language === "en" ? "ru" : "en");
   };
 
-  const navItems = [
-    { key: "home", icon: <HomeIcon />, path: "/" },
-    { key: "about", icon: <InfoIcon />, path: "/about" },
-    { key: "programs", icon: <TourIcon />, path: "/programs" },
-    { key: "contact", icon: <ContactMailIcon />, path: "/contact" },
+  // ===== Team Data =====
+  const team = [
+    { name: "Alice Johnson", role: "CEO", img: "/images/team1.jpg" },
+    { name: "Michael Smith", role: "Head of Operations", img: "/images/team2.jpg" },
+    { name: "Sara Lee", role: "Travel Expert", img: "/images/team3.jpg" },
+    { name: "David Brown", role: "Marketing Lead", img: "/images/team4.jpg" },
+  ];
+
+  // ===== Our Story Data =====
+  const story = [
+    {
+      title: "The Beginning",
+      desc: "Founded in 2010, our passion for luxury travel began with a simple mission: create unforgettable journeys.",
+      img: "/images/story1.jpg",
+    },
+    {
+      title: "First Luxury Tour",
+      desc: "In 2012, we launched our first curated luxury tour, delivering a unique and personalized experience.",
+      img: "/images/story2.jpg",
+    },
+    {
+      title: "Global Expansion",
+      desc: "By 2017, we expanded internationally, bringing our tailored travel experiences to clients worldwide.",
+      img: "/images/story3.jpg",
+    },
+    {
+      title: "Today",
+      desc: "Now, we continue to craft extraordinary journeys, combining luxury, culture, and adventure for our clients.",
+      img: "/images/story4.jpg",
+    },
   ];
 
   return (
-    <Box sx={{ bgcolor: "#f7fbfc", color: "#08323c" }}>
+    <Box sx={{ bgcolor: "#eef3f5", color: "#1b4d5c", minHeight: "100vh" }}>
       {/* ===== NAVBAR ===== */}
       <AppBar
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: "rgba(255,255,255,0.85)",
-          backdropFilter: "blur(14px)",
-          borderBottom: "1px solid rgba(0,0,0,0.05)",
+          background: "rgba(27,77,92,0.9)",
+          backdropFilter: "blur(12px)",
         }}
       >
-        <Toolbar sx={{ justifyContent: "space-between", px: { xs: 2, md: 8 } }}>
-          {isMobile && (
-            <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-              <MenuIcon sx={{ color: "#0e3a47" }} />
-            </IconButton>
-          )}
-
-          {!isMobile && (
-            <Box sx={{ display: "flex", gap: 5 }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.key}
-                  component={Link}
-                  to={item.path}
-                  sx={{
-                    color: "#0e3a47",
-                    fontWeight: 600,
-                    letterSpacing: 0.5,
-                    textTransform: "none",
-                    "&:hover": { color: "#c9a24d" },
-                  }}
-                >
-                  {t(`nav.${item.key}`)}
-                </Button>
-              ))}
-            </Box>
-          )}
-
-          <IconButton onClick={toggleLanguage}>
-            <PublicIcon sx={{ color: "#0e3a47" }} />
+        <Toolbar sx={{ justifyContent: "space-between", px: { xs: 2, md: 6 } }}>
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate("/")}
+            sx={{
+              color: "#fff",
+              fontWeight: 600,
+              textTransform: "none",
+              "&:hover": { color: "#00FFE0" },
+            }}
+          >
+            {t("back", "Back")}
+          </Button>
+          <IconButton onClick={toggleLanguage} sx={{ color: "#00FFE0" }}>
+            <PublicIcon />
           </IconButton>
-
-          {isMobile && (
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={() => setAnchorEl(null)}
-              TransitionComponent={Grow}
-            >
-              {navItems.map((item) => (
-                <MenuItem
-                  key={item.key}
-                  component={Link}
-                  to={item.path}
-                  onClick={() => setAnchorEl(null)}
-                >
-                  {item.icon}
-                  <Box ml={1}>{t(`nav.${item.key}`)}</Box>
-                </MenuItem>
-              ))}
-            </Menu>
-          )}
         </Toolbar>
       </AppBar>
 
       {/* ===== HERO ===== */}
       <Box
         sx={{
-          minHeight: { xs: 520, md: 680 },
           position: "relative",
-          display: "flex",
-          alignItems: "center",
+          py: { xs: 10, md: 16 },
           px: { xs: 3, md: 12 },
+          textAlign: "center",
+          background: "linear-gradient(180deg, #1b4d5c 0%, #0f2f38 100%)",
+          color: "#fff",
         }}
       >
-        {/* Decorative circles */}
-        <Box
-          sx={{
-            position: "absolute",
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle,#eaf6fa,transparent)",
-            top: -150,
-            left: -150,
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(circle,#e3f2f6,transparent)",
-            bottom: -150,
-            right: -100,
-          }}
-        />
-
-        <Box sx={{ maxWidth: 650, position: "relative" }}>
-          <Typography
-            sx={{
-              color: "#c9a24d",
-              letterSpacing: 4,
-              fontWeight: 600,
-              mb: 2,
-            }}
-          >
-            LUXURY TRAVEL EXPERIENCE
-          </Typography>
-
-          <Typography
-            variant={isMobile ? "h4" : "h2"}
-            fontWeight={900}
-            mb={3}
-            lineHeight={1.2}
-          >
-            Crafted Journeys
-            <br />
-            For Those Who Expect More
-          </Typography>
-
-          <Typography
-            sx={{
-              color: "#6b8a93",
-              fontSize: { xs: 15, md: 18 },
-              mb: 5,
-              lineHeight: 1.9,
-            }}
-          >
-            We design refined travel experiences where every detail is
-            intentional, every moment curated, and every journey unforgettable.
-          </Typography>
-
-          <Button
-            sx={{
-              px: 6,
-              py: 1.6,
-              fontWeight: 700,
-              borderRadius: 6,
-              color: "#0e3a47",
-              background:
-                "linear-gradient(90deg,#c9a24d,#e6c77a)",
-              boxShadow: "0 15px 40px rgba(201,162,77,0.35)",
-              "&:hover": {
-                background:
-                  "linear-gradient(90deg,#b8953f,#d6b765)",
-              },
-            }}
-          >
-            Our Philosophy
-          </Button>
-        </Box>
-      </Box>
-
-      {/* ===== PHILOSOPHY ===== */}
-      <Box sx={{ py: 14, px: { xs: 3, md: 14 }, bgcolor: "#ffffff" }}>
-        <Typography variant="h4" fontWeight={800} mb={4}>
-          Our Philosophy
-        </Typography>
         <Typography
           sx={{
-            maxWidth: 900,
-            fontSize: 17,
-            lineHeight: 2,
-            color: "#5f7f89",
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: { xs: 34, md: 48 },
+            color: "#00FFE0",
+            mb: 2,
           }}
         >
-          True luxury is not excess — it is precision. We believe that exceptional
-          travel is defined by seamless organization, cultural depth, and
-          personal attention. Every journey we create reflects our commitment to
-          excellence.
+          {t("companyName")}
+        </Typography>
+
+        <Typography variant={isMobile ? "h4" : "h2"} fontWeight={800} mb={3}>
+          {t("aboutTitle", "Who We Are")}
+        </Typography>
+
+        <Typography
+          sx={{
+            maxWidth: 700,
+            mx: "auto",
+            opacity: 0.9,
+            lineHeight: 1.9,
+            fontSize: { xs: 15, md: 18 },
+          }}
+        >
+          {t(
+            "aboutLong",
+            "We craft unforgettable travel experiences by blending luxury, culture, and personalized service. Every journey we design tells a story — your story."
+          )}
         </Typography>
       </Box>
 
@@ -226,40 +139,158 @@ export default function AboutUs() {
           px: { xs: 3, md: 14 },
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "repeat(4,1fr)" },
-          gap: 4,
+          gap: 5,
         }}
       >
         {[
-          { icon: <WorkspacePremiumIcon />, title: "Refined Quality" },
-          { icon: <EmojiEventsIcon />, title: "Excellence" },
-          { icon: <GroupsIcon />, title: "Expert Team" },
-          { icon: <PublicOutlinedIcon />, title: "Global Vision" },
+          {
+            icon: <WorkspacePremiumIcon fontSize="large" />,
+            title: t("value1", "Premium Quality"),
+            desc: t("value1Desc", "Attention to every detail."),
+          },
+          {
+            icon: <EmojiEventsIcon fontSize="large" />,
+            title: t("value2", "Excellence"),
+            desc: t("value2Desc", "High standards in every journey."),
+          },
+          {
+            icon: <GroupsIcon fontSize="large" />,
+            title: t("value3", "Expert Team"),
+            desc: t("value3Desc", "Professionals who care."),
+          },
+          {
+            icon: <PublicOutlinedIcon fontSize="large" />,
+            title: t("value4", "Global Reach"),
+            desc: t("value4Desc", "Destinations without limits."),
+          },
         ].map((item, i) => (
           <Card
             key={i}
             sx={{
-              bgcolor: "rgba(255,255,255,0.75)",
-              backdropFilter: "blur(16px)",
               p: 5,
               borderRadius: 5,
               textAlign: "center",
-              boxShadow: "0 30px 60px rgba(8,50,60,0.08)",
+              background: "#fff",
+              boxShadow: "0 20px 50px rgba(27,77,92,0.12)",
+              "&:hover": {
+                transform: "translateY(-10px)",
+                boxShadow: "0 30px 70px rgba(27,77,92,0.2)",
+              },
             }}
           >
             <IconButton
               sx={{
-                mb: 3,
-                bgcolor: "#f1e2b8",
-                color: "#0e3a47",
+                mb: 2,
+                color: "#00FFE0",
+                background: "#1b4d5c",
+                "&:hover": { background: "#163f4c" },
               }}
             >
               {item.icon}
             </IconButton>
-            <Typography fontWeight={700} fontSize={17}>
+            <Typography fontWeight={700} mb={1}>
               {item.title}
+            </Typography>
+            <Typography sx={{ opacity: 0.7, fontSize: 14 }}>
+              {item.desc}
             </Typography>
           </Card>
         ))}
+      </Box>
+
+      {/* ===== TEAM ===== */}
+      <Box sx={{ py: 14, px: { xs: 3, md: 12 } }}>
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          textAlign="center"
+          mb={8}
+          color="#1b4d5c"
+        >
+          {t("ourTeam", "Meet Our Team")}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(2,1fr)", md: "repeat(4,1fr)" },
+            gap: 6,
+          }}
+        >
+          {team.map((member, i) => (
+            <Card
+              key={i}
+              sx={{
+                p: 3,
+                textAlign: "center",
+                borderRadius: 4,
+                boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
+                "&:hover": { transform: "translateY(-5px)", boxShadow: "0 20px 60px rgba(0,0,0,0.1)" },
+              }}
+            >
+              <Avatar
+                src={member.img}
+                sx={{ width: 100, height: 100, mx: "auto", mb: 2 }}
+              />
+              <Typography fontWeight={700}>{member.name}</Typography>
+              <Typography sx={{ opacity: 0.7, fontSize: 14 }}>{member.role}</Typography>
+            </Card>
+          ))}
+        </Box>
+      </Box>
+
+      {/* ===== OUR STORY WITH IMAGES ===== */}
+      <Box sx={{ py: 14, px: { xs: 3, md: 12 }, background: "#f0f8fb" }}>
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          textAlign="center"
+          mb={10}
+          color="#1b4d5c"
+        >
+          {t("ourStory", "Our Story")}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(2,1fr)" },
+            gap: 8,
+          }}
+        >
+          {story.map((item, i) => (
+            <Card
+              key={i}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: "center",
+                gap: 3,
+                p: 3,
+                borderRadius: 4,
+                boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
+              }}
+            >
+              <Box
+                component="img"
+                src={item.img}
+                alt={item.title}
+                sx={{
+                  width: { xs: "100%", md: 150 },
+                  height: 120,
+                  objectFit: "cover",
+                  borderRadius: 2,
+                }}
+              />
+              <Box>
+                <Typography fontWeight={700} mb={1}>
+                  {item.title}
+                </Typography>
+                <Typography sx={{ opacity: 0.8 }}>{item.desc}</Typography>
+              </Box>
+            </Card>
+          ))}
+        </Box>
       </Box>
     </Box>
   );
