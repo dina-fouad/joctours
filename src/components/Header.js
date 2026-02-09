@@ -18,7 +18,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import TourIcon from "@mui/icons-material/CardTravel";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Header() {
   const { t, i18n } = useTranslation("common");
@@ -35,7 +35,7 @@ export default function Header() {
   const navItems = [
     { key: "home", icon: <HomeIcon /> },
     { key: "about", icon: <InfoIcon /> },
-    { key: "programs", icon: <TourIcon /> }, // سيتم scroll
+    { key: "programs", icon: <TourIcon /> },
     { key: "contact", icon: <ContactMailIcon /> },
   ];
 
@@ -51,6 +51,61 @@ export default function Header() {
     }
   };
 
+  // Navbar ديناميكي + مخفي افتراضيًا
+  const videoRef = useRef(null);
+  const navbarRef = useRef(null);
+  const [showNavbar, setShowNavbar] = useState(false);
+
+  // تحديث لون الخلفية الزجاجية
+  useEffect(() => {
+    if (!videoRef.current || !navbarRef.current) return;
+
+    const video = videoRef.current;
+    const navbar = navbarRef.current;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = 1;
+    canvas.height = 1;
+
+    let animationFrame;
+
+    const updateNavbarColor = () => {
+      if (video.readyState >= 2) {
+        ctx.drawImage(video, 0, 0, 1, 1);
+        const data = ctx.getImageData(0, 0, 1, 1).data;
+        const [r, g, b] = data;
+        navbar.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.15)`;
+      }
+      animationFrame = requestAnimationFrame(updateNavbarColor);
+    };
+
+    updateNavbarColor();
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  // كشف/اخفاء الناف بار عند تمرير الماوس
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!videoRef.current) return;
+      const rect = videoRef.current.getBoundingClientRect();
+      if (
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom &&
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right
+      ) {
+        setShowNavbar(true);
+      } else {
+        setShowNavbar(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -65,6 +120,7 @@ export default function Header() {
       {/* 🎥 Video Background */}
       <Box
         component="video"
+        ref={videoRef}
         autoPlay
         loop
         muted
@@ -81,144 +137,160 @@ export default function Header() {
         <source src="/videos/video.mp4" type="video/mp4" />
       </Box>
 
-      {/* 🧭 Navbar */}
-      <AppBar
-        position="absolute"
-        elevation={0}
-        sx={{ background: "transparent", px: isMobile ? 2 : 6, zIndex: 2 }}
+      {/* 🧭 Navbar Glass Box */}
+      <Box
+        ref={navbarRef}
+        sx={{
+          position: "absolute",
+            top: isMobile ? 0 : showNavbar ? 0 : -80, // مثبت على الموبايل، ديناميكي على سطح المكتب
+          left: 0,
+          right: 0,
+          width: "100%",
+          height: 60,
+          borderRadius: 0,
+          backdropFilter: "blur(12px)",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+          zIndex: 2,
+          transition: "top 0.4s ease",
+        }}
       >
-        <Toolbar sx={{ justifyContent: "space-between", alignItems: "center" }}>
-          {isMobile && (
-            <IconButton color="inherit" onClick={handleMenuOpen} size="large">
-              <MenuIcon sx={{ fontSize: "2rem" }} />
-            </IconButton>
-          )}
+        <AppBar
+          position="static"
+          elevation={0}
+          sx={{
+            background: "transparent",
+            boxShadow: "none",
+            px: isMobile ? 2 : 6,
+            height: "100%",
+          }}
+        >
+          <Toolbar sx={{ justifyContent: "space-between", alignItems: "center", height: "100%" }}>
+            {isMobile && (
+              <IconButton color="inherit" onClick={handleMenuOpen} size="large">
+                <MenuIcon sx={{ fontSize: "2rem", color: "#fff" }} />
+              </IconButton>
+            )}
 
-          {!isMobile && (
-            <Box sx={{ display: "flex", gap: 4, alignItems: "center" }}>
-              {navItems.map((item) => (
-                <Button
-                  key={item.key}
-                  onClick={() => handleNavClick(item.key)}
-                  sx={{
-                    color: "#fff",
-                    fontSize: "1.2rem",
-                    fontWeight: 600,
-                    textTransform: "none",
-                    padding: "6px 12px",
-                    position: "relative",
-                    textShadow: "1px 1px 3px rgba(0,0,0,0.7)",
-                    "&:hover": {
-                      background: "rgba(255,255,255,0.1)",
-                      borderRadius: 2,
-                    },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: 0,
-                      height: 3,
-                      background: "#1da9cc",
-                      transition: "width 0.3s ease",
-                      borderRadius: 2,
-                    },
-                    "&:hover::after": {
-                      width: "100%",
-                    },
-                  }}
-                >
-                  {t(`nav.${item.key}`)}
-                </Button>
-              ))}
-            </Box>
-          )}
+            {!isMobile && (
+              <Box sx={{ display: "flex", gap: 4, alignItems: "center" }}>
+                {navItems.map((item) => (
+                  <Button
+                    key={item.key}
+                    onClick={() => handleNavClick(item.key)}
+                    sx={{
+                      color: "#fff",
+                      fontSize: "1.2rem",
+                      fontWeight: 600,
+                      textTransform: "none",
+                      padding: "6px 12px",
+                      position: "relative",
+                      textShadow: "1px 1px 3px rgba(0,0,0,0.7)",
+                      "&:hover": {
+                        background: "rgba(255,255,255,0.15)",
+                        borderRadius: 2,
+                      },
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: 0,
+                        height: 3,
+                        background: "#1da9cc",
+                        transition: "width 0.3s ease",
+                        borderRadius: 2,
+                      },
+                      "&:hover::after": { width: "100%" },
+                    }}
+                  >
+                    {t(`nav.${item.key}`)}
+                  </Button>
+                ))}
+              </Box>
+            )}
 
-          {/* أيقونة تغيير اللغة */}
-          <IconButton
-            onClick={toggleLanguage}
-            sx={{
-              color: "#fff",
-              fontSize: isMobile ? "2rem" : "2.5rem",
-              ml: isMobile ? 0 : 2,
-            }}
-            size="large"
-          >
-            <PublicIcon sx={{ fontSize: isMobile ? 36 : 44 }} />
-          </IconButton>
-
-          {/* قائمة الموبايل */}
-          {isMobile && (
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{ vertical: "top", horizontal: "left" }}
-              transformOrigin={{ vertical: "top", horizontal: "left" }}
-              TransitionComponent={Grow}
-              PaperProps={{
-                sx: {
-                  backgroundColor: "rgba(0,0,0,0.6)",
-                  backdropFilter: "blur(12px)",
-                  borderRadius: 3,
-                  minWidth: 220,
-                  p: 0,
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
-                  top: 0,
-                  left: 0,
-                },
+            <IconButton
+              onClick={toggleLanguage}
+              sx={{
+                color: "#fff",
+                fontSize: isMobile ? "2rem" : "2.5rem",
+                ml: isMobile ? 0 : 2,
               }}
-              MenuListProps={{
-                disablePadding: true,
-              }}
+              size="large"
             >
-              {navItems.map((item) => (
-                <MenuItem
-                  key={item.key}
-                  onClick={() => {
-                    handleMenuClose();
-                    handleNavClick(item.key);
-                  }}
-                  sx={{
-                    fontSize: "1.15rem",
-                    color: "#fff",
-                    py: 2,
-                    px: 3,
-                    borderRadius: 2,
-                    position: "relative",
-                    textShadow: "0 1px 3px rgba(0,0,0,0.7)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.1)",
-                      transform: "translateX(5px)",
-                    },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: 0,
-                      height: 3,
-                      background: "#1da9cc",
-                      transition: "width 0.3s ease",
+              <PublicIcon sx={{ fontSize: isMobile ? 36 : 44 }} />
+            </IconButton>
+
+            {isMobile && (
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}
+                TransitionComponent={Grow}
+                PaperProps={{
+                  sx: {
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backdropFilter: "blur(12px)",
+                    borderRadius: 3,
+                    minWidth: 220,
+                    p: 0,
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                    top: 0,
+                    left: 0,
+                  },
+                }}
+                MenuListProps={{ disablePadding: true }}
+              >
+                {navItems.map((item) => (
+                  <MenuItem
+                    key={item.key}
+                    onClick={() => {
+                      handleMenuClose();
+                      handleNavClick(item.key);
+                    }}
+                    sx={{
+                      fontSize: "1.15rem",
+                      color: "#fff",
+                      py: 2,
+                      px: 3,
                       borderRadius: 2,
-                    },
-                    "&:hover::after": { width: "100%" },
-                  }}
-                >
-                  <ListItemIcon sx={{ color: "#fff", minWidth: 30 }}>
-                    {item.icon}
-                  </ListItemIcon>
-                  {t(`nav.${item.key}`)}
-                </MenuItem>
-              ))}
-            </Menu>
-          )}
-        </Toolbar>
-      </AppBar>
+                      position: "relative",
+                      textShadow: "0 1px 3px rgba(0,0,0,0.7)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        backgroundColor: "rgba(255,255,255,0.15)",
+                        transform: "translateX(5px)",
+                      },
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: 0,
+                        height: 3,
+                        background: "#1da9cc",
+                        transition: "width 0.3s ease",
+                        borderRadius: 2,
+                      },
+                      "&:hover::after": { width: "100%" },
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "#fff", minWidth: 30 }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    {t(`nav.${item.key}`)}
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
+          </Toolbar>
+        </AppBar>
+      </Box>
 
       {/* 🏔 Hero Content */}
       <Box

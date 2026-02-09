@@ -69,49 +69,50 @@ export default function ProgramCard() {
   return (
     <Box sx={{ bgcolor: "#fff" }}>
       {/* ===== NAVBAR ===== */}
-      <AppBar
-        position="sticky"
-        color="default"
-        elevation={1}
-        sx={{
-          bgcolor: "#fff",
-          height: isMobile ? 40 : 50,
-          transition: "height 0.3s ease",
-        }}
-      >
-        <Toolbar
-          sx={{
-            justifyContent: "space-between",
-            px: { xs: 1, md: 6 },
-            minHeight: "inherit",
-          }}
-        >
-          <Button
-            component={Link}
-            to="/"
-            startIcon={<HomeIcon fontSize="small" />}
-            sx={{
-              color: "#1b4d5c",
-              fontWeight: 700,
-              textTransform: "none",
-              fontSize: { xs: 12, md: 14 },
-            }}
-          >
-            Back
-          </Button>
+    <AppBar
+  position="sticky" // أو "fixed" لو تريدها دائمًا بدون اختفاء عند التمرير
+  elevation={0}
+  sx={{
+    bgcolor: "rgba(255,255,255,0.15)", // شفاف
+    backdropFilter: "blur(12px)",      // تأثير الزجاج
+    height: isMobile ? 40 : 50,
+    transition: "height 0.3s ease",
+  }}
+>
+  <Toolbar
+    sx={{
+      justifyContent: "space-between",
+      px: { xs: 1, md: 6 },
+      minHeight: "inherit",
+    }}
+  >
+    <Button
+      component={Link}
+      to="/"
+      startIcon={<HomeIcon fontSize="small" />}
+      sx={{
+        color: "#1b4d5c",
+        fontWeight: 700,
+        textTransform: "none",
+        fontSize: { xs: 12, md: 14 },
+      }}
+    >
+      Back
+    </Button>
 
-          <IconButton
-            onClick={toggleLanguage}
-            sx={{
-              color: "#1b4d5c",
-              fontSize: { xs: 20, md: 28 },
-            }}
-            size="large"
-          >
-            <PublicIcon fontSize="inherit" />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+    <IconButton
+      onClick={toggleLanguage}
+      sx={{
+        color: "#1b4d5c",
+        fontSize: { xs: 20, md: 28 },
+      }}
+      size="large"
+    >
+      <PublicIcon fontSize="inherit" />
+    </IconButton>
+  </Toolbar>
+</AppBar>
+
 
       {/* ===== HERO IMAGE & CONTENT ===== */}
       <Box
