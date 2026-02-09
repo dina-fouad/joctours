@@ -7,7 +7,6 @@ import {
   keyframes,
 } from "@mui/material";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
-import PublicIcon from "@mui/icons-material/Public";
 
 export default function Loading() {
   const navigate = useNavigate();
@@ -21,6 +20,7 @@ export default function Loading() {
     }, 1200);
   };
 
+  // حركة دوران الطائرة حول المركز
   const rotateOrbit = keyframes`
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -49,18 +49,22 @@ export default function Loading() {
         style={{ display: "none" }}
       />
 
-      <PublicIcon
-        sx={{
-          fontSize: isMobile ? 100 : 140,
-          color: "#00FFE0",
+      {/* الصورة في مركز الشاشة */}
+      <img
+        src="/images/logo.png"
+        alt="Logo"
+        style={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          width: isMobile ? 130 : 180,
+          height: isMobile ? 130 : 180,
           zIndex: 1,
         }}
       />
 
+      {/* صندوق دوران الطائرة حول الصورة */}
       <Box
         sx={{
           position: "absolute",
@@ -74,7 +78,7 @@ export default function Loading() {
         <AirplanemodeActiveIcon
           sx={{
             fontSize: isMobile ? 30 : 45,
-            color: "#0ae5ec", // ✅ لون الطائرة الجديد
+            color: "#0ae5ec",
             position: "absolute",
             top: -18,
             left: "50%",
