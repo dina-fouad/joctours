@@ -1,31 +1,44 @@
-import { useState } from "react";
-import {
-  Box,
-  CircularProgress,
-  useMediaQuery,
-  keyframes,
-} from "@mui/material";
+import { useState, useEffect } from "react";
+import { Box, CircularProgress, useMediaQuery, keyframes } from "@mui/material";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 
 export default function Loading({ onFinish }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  // عند تحميل الفيديو، اضبط الحالة ثم بعد 1.2 ثانية أخبر App أن اللودنج انتهى
+  // عند تحميل الفيديو
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
-    setTimeout(() => {
-      if (onFinish) onFinish(); // تخبر App أن اللودنج انتهى
-    }, 1200);
   };
 
-  // حركة دوران الطائرة حول المركز
+  // إذا الصورة والفيديو جاهزين، أنهِ اللودنج بعد 1.2 ثانية
+  useEffect(() => {
+    if (videoLoaded && imageLoaded) {
+      const timeout = setTimeout(() => {
+        if (onFinish) onFinish();
+      }, 1200);
+      return () => clearTimeout(timeout);
+    }
+  }, [videoLoaded, imageLoaded, onFinish]);
+
+  // حركة دوران الطائرة حول الشعار
   const rotateOrbit = keyframes`
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
   `;
-
   const orbitRadius = isMobile ? 85 : 130;
+
+  // preload الصورة والفيديو لتحسين السرعة
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/images/logo.webp";
+    img.onload = () => setImageLoaded(true);
+
+    const video = document.createElement("video");
+    video.src = "/videos/video.mp4";
+    video.preload = "auto";
+  }, []);
 
   return (
     <Box
@@ -49,7 +62,7 @@ export default function Loading({ onFinish }) {
         style={{ display: "none" }}
       />
 
-      {/* الصورة في مركز الشاشة */}
+      {/* شعار اللودنج يظهر فورًا */}
       <img
         src="/images/logo.webp"
         alt="Logo"
@@ -61,10 +74,12 @@ export default function Loading({ onFinish }) {
           width: isMobile ? 130 : 180,
           height: isMobile ? 130 : 180,
           zIndex: 1,
+          opacity: imageLoaded ? 1 : 0,
+          transition: "opacity 0.2s ease-in",
         }}
       />
 
-      {/* صندوق دوران الطائرة حول الصورة */}
+      {/* صندوق دوران الطائرة حول الشعار */}
       <Box
         sx={{
           position: "absolute",
@@ -87,8 +102,8 @@ export default function Loading({ onFinish }) {
         />
       </Box>
 
-      {/* مؤشر التحميل أثناء انتظار الفيديو */}
-      {!videoLoaded && (
+      {/* مؤشر التحميل يظهر إذا الفيديو أو الصورة لم يُحمّل بعد */}
+      {!(videoLoaded && imageLoaded) && (
         <CircularProgress
           sx={{
             position: "absolute",

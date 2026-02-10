@@ -58,6 +58,14 @@ const handleNavClick = (key) => {
   const videoRef = useRef(null);
   const navbarRef = useRef(null);
   const [showNavbar, setShowNavbar] = useState(false);
+    const [coverLoaded, setCoverLoaded] = useState(false);
+
+    // preload الصورة فوراً
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/images/cover.webp";
+    img.onload = () => setCoverLoaded(true);
+  }, []);
 
   // تحديث لون الخلفية الزجاجية
   useEffect(() => {
@@ -120,6 +128,24 @@ const handleNavClick = (key) => {
         backgroundColor: "#e0eee6",
       }}
     >
+
+           {/* Cover يظهر فوراً */}
+      {coverLoaded && (
+        <Box
+          component="img"
+          src="/images/cover.webp"
+          alt="cover"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        />
+      )}
+      
       {/* 🎥 Video Background */}
       <Box
         component="video"

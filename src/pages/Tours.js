@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Box,
@@ -22,16 +22,23 @@ import { useSwipeable } from "react-swipeable";
 export default function Tours() {
   const { t } = useTranslation("tours");
   const tours = Object.values(t("data", { returnObjects: true }) || []);
-
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  const itemsPerPage = isMobile ? 1 : 5; // كارد واحد على الموبايل
+  const itemsPerPage = isMobile ? 1 : 5;
   const totalPages = Math.ceil(tours.length / itemsPerPage);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [selectedTour, setSelectedTour] = useState(null);
   const [animating, setAnimating] = useState(false);
+
+  // ✅ preload الخلفية
+  const [coverLoaded, setCoverLoaded] = useState(false);
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/images/cover.webp";
+    img.onload = () => setCoverLoaded(true);
+  }, []);
 
   const visibleTours = tours.slice(
     currentPage * itemsPerPage,
@@ -69,7 +76,6 @@ export default function Tours() {
     setSelectedTour(tour);
     setOpenModal(true);
   };
-
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedTour(null);
@@ -77,27 +83,29 @@ export default function Tours() {
 
   return (
     <Box sx={{ position: "relative", py: isMobile ? 6 : 12 }}>
-      {/* الخلفية */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "55%",
-          backgroundImage: "url(/images/cover.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: 0,
-          "&::after": {
-            content: '""',
+      {/* ✅ الخلفية تظهر فورًا بعد preload */}
+      {coverLoaded && (
+        <Box
+          sx={{
             position: "absolute",
-            inset: 0,
-            backgroundColor: "white",
-            opacity: 0.8,
-          },
-        }}
-      />
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "55%",
+            backgroundImage: "url(/images/cover.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            zIndex: 0,
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              inset: 0,
+              backgroundColor: "white",
+              opacity: 0.8,
+            },
+          }}
+        />
+      )}
 
       {/* المحتوى */}
       <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
@@ -115,7 +123,7 @@ export default function Tours() {
         <Typography
           sx={{
             fontWeight: 700,
-            fontSize: { xs: "24px", md: "36px" }, // ✅ تعديل حجم الخط
+            fontSize: { xs: "24px", md: "36px" },
             color: "#175260",
             mb: { xs: 4, md: 8 },
           }}
@@ -146,7 +154,7 @@ export default function Tours() {
             <Card
               key={tour.id}
               sx={{
-                width: isMobile ? 260 : 260,
+                width: 260,
                 borderRadius: "20px",
                 overflow: "hidden",
                 transform: `rotate(${
@@ -170,20 +178,12 @@ export default function Tours() {
               />
 
               <CardContent sx={{ textAlign: "center" }}>
-                <Typography
-                  fontWeight={600}
-                  fontSize={isMobile ? "18px" : "18px"} // ✅ حجم ثابت للكارد لكل الشاشات
-                  sx={{ color: "#175260" }}
-                >
+                <Typography fontWeight={600} fontSize="18px" sx={{ color: "#175260" }}>
                   {tour.title}
                 </Typography>
 
                 <Typography
-                  sx={{
-                    fontSize: "14px",
-                    color: "#6aa6b6",
-                    cursor: "pointer",
-                  }}
+                  sx={{ fontSize: "14px", color: "#6aa6b6", cursor: "pointer" }}
                   onClick={() => handleOpenModal(tour)}
                 >
                   {t("readMore")}
@@ -217,12 +217,7 @@ export default function Tours() {
 
       {/* المودال */}
       {selectedTour && (
-        <Dialog
-          open={openModal}
-          onClose={handleCloseModal}
-          maxWidth="sm"
-          fullWidth
-        >
+        <Dialog open={openModal} onClose={handleCloseModal} maxWidth="sm" fullWidth>
           <DialogTitle>{selectedTour.title}</DialogTitle>
           <DialogContent>
             <CardMedia
