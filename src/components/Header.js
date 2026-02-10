@@ -21,7 +21,6 @@ import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Header() {
   const { t, i18n } = useTranslation("common");
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -42,57 +41,42 @@ export default function Header() {
     { key: "contact", icon: <ContactMailIcon /> },
   ];
 
-const handleNavClick = (key) => {
-  if (key === "programs") {
-    const section = document.getElementById("program-section");
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-  } else if (key === "home") {
-    navigate("/home"); 
-  } else {
-    const pathMap = { about: "/about", contact: "/contact" };
-    navigate(pathMap[key] || "/"); 
-  }
-};
+  const handleNavClick = (key) => {
+    if (key === "programs") {
+      const section = document.getElementById("program-section");
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    } else if (key === "home") {
+      navigate("/home"); 
+    } else {
+      const pathMap = { about: "/about", contact: "/contact" };
+      navigate(pathMap[key] || "/"); 
+    }
+  };
 
-  // Navbar 
   const videoRef = useRef(null);
   const navbarRef = useRef(null);
   const [showNavbar, setShowNavbar] = useState(false);
-    const [coverLoaded, setCoverLoaded] = useState(false);
-
-    // preload الصورة فوراً
-  useEffect(() => {
-    const img = new Image();
-    img.src = "/images/cover.webp";
-    img.onload = () => setCoverLoaded(true);
-  }, []);
 
   // تحديث لون الخلفية الزجاجية
   useEffect(() => {
     if (!videoRef.current || !navbarRef.current) return;
-
     const video = videoRef.current;
     const navbar = navbarRef.current;
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-
     canvas.width = 1;
     canvas.height = 1;
-
     let animationFrame;
 
     const updateNavbarColor = () => {
       if (video.readyState >= 2) {
         ctx.drawImage(video, 0, 0, 1, 1);
-        const data = ctx.getImageData(0, 0, 1, 1).data;
-        const [r, g, b] = data;
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
         navbar.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.15)`;
       }
       animationFrame = requestAnimationFrame(updateNavbarColor);
     };
-
     updateNavbarColor();
-
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
@@ -112,7 +96,6 @@ const handleNavClick = (key) => {
         setShowNavbar(false);
       }
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -128,25 +111,7 @@ const handleNavClick = (key) => {
         backgroundColor: "#e0eee6",
       }}
     >
-
-           {/* Cover يظهر فوراً */}
-      {coverLoaded && (
-        <Box
-          component="img"
-          src="/images/cover.webp"
-          alt="cover"
-          sx={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: 0,
-          }}
-        />
-      )}
-      
-      {/* 🎥 Video Background */}
+      {/* 🎥 Video Background فقط */}
       <Box
         component="video"
         ref={videoRef}
@@ -161,6 +126,7 @@ const handleNavClick = (key) => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
+          pointerEvents: "none",
         }}
       >
         <source src="/videos/video.mp4" type="video/mp4" />
@@ -171,7 +137,7 @@ const handleNavClick = (key) => {
         ref={navbarRef}
         sx={{
           position: "absolute",
-            top: isMobile ? 0 : showNavbar ? 0 : -80, // مثبت على الموبايل، ديناميكي على سطح المكتب
+          top: isMobile ? 0 : showNavbar ? 0 : -80,
           left: 0,
           right: 0,
           width: "100%",
