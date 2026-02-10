@@ -2,9 +2,11 @@ import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 import { Facebook, Instagram, Twitter, YouTube } from "@mui/icons-material";
 import { LocationOn, Phone, Email } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const { t } = useTranslation("common");
+    const navigate = useNavigate();
 
   const quickLinks = [
     { key: "home", label: t("nav.home") },
@@ -16,16 +18,15 @@ export default function Footer() {
   const socialIcons = [Facebook, Instagram, Twitter, YouTube];
 
   const handleQuickLinkClick = (key) => {
-    if (key === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else if (key === "programs") {
-      const section = document.getElementById("program-section");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
-    } else if (key === "contact") {
-      window.location.href = "/contact";
-    } else if (key === "about") {
-      window.location.href = "/about";
-    }
+    if (key === "programs") {
+    const section = document.getElementById("program-section");
+    if (section) section.scrollIntoView({ behavior: "smooth" });
+  } else if (key === "home") {
+    navigate("/home"); 
+  } else {
+    const pathMap = { about: "/about", contact: "/contact" };
+    navigate(pathMap[key] || "/"); 
+  }
   };
 
   return (

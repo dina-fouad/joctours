@@ -13,11 +13,11 @@ import StickyAvatar from "./components/StickyAvatar";
 
 function App() {
   const location = useLocation();
-  const [showLoading, setShowLoading] = useState(true); // يظهر اللودنج مرة واحدة
+  const [showLoading, setShowLoading] = useState(true); 
 
   const showStickyAvatar = location.pathname !== "/";
 
-  // إذا التطبيق مازال يعرض اللودنج، نعرضه بدلاً من Routes
+ 
   if (showLoading) {
     return <Loading onFinish={() => setShowLoading(false)} />;
   }
