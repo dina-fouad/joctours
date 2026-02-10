@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 import Loading from "./pages/Loading";
 import Home from "./pages/Home";
@@ -12,16 +13,19 @@ import StickyAvatar from "./components/StickyAvatar";
 
 function App() {
   const location = useLocation();
+  const [showLoading, setShowLoading] = useState(true); // يظهر اللودنج مرة واحدة
 
- 
   const showStickyAvatar = location.pathname !== "/";
+
+  // إذا التطبيق مازال يعرض اللودنج، نعرضه بدلاً من Routes
+  if (showLoading) {
+    return <Loading onFinish={() => setShowLoading(false)} />;
+  }
 
   return (
     <>
-      {/* Routes */}
       <Routes>
-        <Route path="/" element={<Loading />} />
-
+        <Route path="/" element={<Home />} /> {/* الصفحة الرئيسية */}
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -31,11 +35,9 @@ function App() {
         <Route path="/program/:programKey" element={<ProgramCard />} />
       </Routes>
 
-  
       {showStickyAvatar && <StickyAvatar />}
     </>
   );
 }
 
 export default App;
-

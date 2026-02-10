@@ -85,7 +85,7 @@ export default function Tours() {
           left: 0,
           width: "100%",
           height: "55%",
-          backgroundImage: "url(/images/cover.png)",
+          backgroundImage: "url(/images/cover.webp)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: 0,

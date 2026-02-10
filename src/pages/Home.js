@@ -8,6 +8,7 @@ import Programmes from "./Programmes";
 import Reviews from "../components/Reviews";
 import Footer from "../components/Footer";
 
+
 const fadeUp = keyframes`
   from {
     opacity: 0;
@@ -51,6 +52,7 @@ export default function Home() {
   const [guidesRef, guidesVisible] = useScrollAnimation();
   const [programmesRef, programmesVisible] = useScrollAnimation();
   const [reviewsRef, reviewsVisible] = useScrollAnimation(); // ✅ جديد
+  
 
   return (
     <Box>
@@ -66,38 +68,44 @@ export default function Home() {
         sx={{
           mb: 14,
           opacity: guidesVisible ? 1 : 0,
-          animation: guidesVisible ? `${fadeUp} 0.9s ease-out forwards` : "none",
+          animation: guidesVisible
+            ? `${fadeUp} 0.9s ease-out forwards`
+            : "none",
         }}
       >
         <Guides />
       </Box>
 
       {/* Programmes */}
-      <Box
-        id="program-section" // ✅ مهم للتمرير عند الضغط على زر PROGRAM
-        ref={programmesRef}
-        sx={{
-          mb: 14,
-          opacity: programmesVisible ? 1 : 0,
-          animation: programmesVisible ? `${fadeUp} 0.9s ease-out forwards` : "none",
-        }}
-      >
-        <Programmes />
-      </Box>
+<Box
+  id="program-section"  // ✅ أضف هذا
+  ref={programmesRef}
+  sx={{
+    mb: 14,
+    opacity: programmesVisible ? 1 : 0,
+    animation: programmesVisible
+      ? `${fadeUp} 0.9s ease-out forwards`
+      : "none",
+  }}
+>
+  <Programmes />
+</Box>
 
       {/* Reviews ✅ */}
       <Box
         ref={reviewsRef}
         sx={{
           opacity: reviewsVisible ? 1 : 0,
-          animation: reviewsVisible ? `${fadeUp} 1s ease-out forwards` : "none",
+          animation: reviewsVisible
+            ? `${fadeUp} 1s ease-out forwards`
+            : "none",
         }}
       >
         <Reviews />
       </Box>
 
-      {/* Footer */}
       <Footer />
+  
     </Box>
   );
 }

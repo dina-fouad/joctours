@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   CircularProgress,
@@ -8,15 +7,15 @@ import {
 } from "@mui/material";
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 
-export default function Loading() {
-  const navigate = useNavigate();
+export default function Loading({ onFinish }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
 
+  // عند تحميل الفيديو، اضبط الحالة ثم بعد 1.2 ثانية أخبر App أن اللودنج انتهى
   const handleVideoLoaded = () => {
     setVideoLoaded(true);
     setTimeout(() => {
-      navigate("/home");
+      if (onFinish) onFinish(); // تخبر App أن اللودنج انتهى
     }, 1200);
   };
 
@@ -41,6 +40,7 @@ export default function Loading() {
         overflow: "hidden",
       }}
     >
+      {/* فيديو الخلفية مخفي */}
       <video
         src="/videos/video.mp4"
         autoPlay
@@ -51,7 +51,7 @@ export default function Loading() {
 
       {/* الصورة في مركز الشاشة */}
       <img
-        src="/images/logo.png"
+        src="/images/logo.webp"
         alt="Logo"
         style={{
           position: "absolute",
@@ -87,6 +87,7 @@ export default function Loading() {
         />
       </Box>
 
+      {/* مؤشر التحميل أثناء انتظار الفيديو */}
       {!videoLoaded && (
         <CircularProgress
           sx={{

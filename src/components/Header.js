@@ -19,10 +19,13 @@ import TourIcon from "@mui/icons-material/CardTravel";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Header() {
   const { t, i18n } = useTranslation("common");
   const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language === "en" ? "ru" : "en");
@@ -39,19 +42,19 @@ export default function Header() {
     { key: "contact", icon: <ContactMailIcon /> },
   ];
 
-  const handleNavClick = (key) => {
-    if (key === "programs") {
-      const section = document.getElementById("program-section");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
-    } else if (key === "home") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      const pathMap = { about: "/about", contact: "/contact" };
-      window.location.href = pathMap[key] || "/";
-    }
-  };
+const handleNavClick = (key) => {
+  if (key === "programs") {
+    const section = document.getElementById("program-section");
+    if (section) section.scrollIntoView({ behavior: "smooth" });
+  } else if (key === "home") {
+    navigate("/home"); 
+  } else {
+    const pathMap = { about: "/about", contact: "/contact" };
+    navigate(pathMap[key] || "/"); 
+  }
+};
 
-  // Navbar ديناميكي + مخفي افتراضيًا
+  // Navbar 
   const videoRef = useRef(null);
   const navbarRef = useRef(null);
   const [showNavbar, setShowNavbar] = useState(false);
@@ -371,7 +374,7 @@ export default function Header() {
                 y="0"
                 width="1200"
                 height="120"
-                xlinkHref="/images/cover.png"
+                xlinkHref="/images/cover.webp"
                 preserveAspectRatio="xMidYMid slice"
               />
               <rect

@@ -45,7 +45,7 @@ export default function Programmes() {
           left: 0,
           width: "100%",
           height: "50vh",
-          backgroundImage: "url('/images/programmes/cover2.png')",
+          backgroundImage: "url('/images/programmes/cover2.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: -2,
